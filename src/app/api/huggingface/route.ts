@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
         // Parse colors from response
         let colors: string[] = [];
         try {
-          const match = colorText.match(/\[.*\]/s);
+          const match = colorText.match(/\[[\s\S]*\]/);
           if (match) {
             colors = JSON.parse(match[0]);
           }

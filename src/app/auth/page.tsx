@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 
@@ -9,7 +9,7 @@ type AuthMode = 'login' | 'signup' | 'signup-details' | 'verify-otp';
 const ROLES = ['Designer', 'Marketing Manager', 'Brand Manager', 'Developer', 'Other'];
 const PURPOSES = ['Create Retail Ads', 'Brand Campaigns', 'Product Promotions', 'Learning/Exploration', 'Other'];
 
-export default function AuthPage() {
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
@@ -714,5 +714,29 @@ export default function AuthPage() {
         }
       `}</style>
     </div>
+  );
+}
+
+// Loading component for Suspense
+function AuthLoading() {
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="relative w-12 h-12 mx-auto mb-4">
+          <div className="absolute inset-0 rounded-full border-4 border-violet-500/20"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-violet-500 animate-spin"></div>
+        </div>
+        <p className="text-gray-500 text-sm">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main export with Suspense boundary
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<AuthLoading />}>
+      <AuthContent />
+    </Suspense>
   );
 }

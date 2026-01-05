@@ -97,6 +97,10 @@ export interface CanvasRef {
   setBrushColor: (color: string) => void;
   setBrushSize: (size: number) => void;
   clearDrawing: () => void;
+  // Crop tools
+  startCrop: () => { success: boolean; message: string };
+  applyCrop: () => { success: boolean; message: string };
+  cancelCrop: () => { success: boolean; message: string } | void;
 }
 
 export default function CanvasEditor({ 
@@ -120,12 +124,24 @@ export default function CanvasEditor({
   useEffect(() => {
     if (!canvasRef.current || fabricRef.current) return;
 
+    // Get device pixel ratio for high DPI displays
+    const pixelRatio = window.devicePixelRatio || 1;
+
     const canvas = new fabric.Canvas(canvasRef.current, {
       width,
       height,
       backgroundColor: '#ffffff',
       preserveObjectStacking: true,
+      enableRetinaScaling: true, // Enable retina/high DPI support
+      imageSmoothingEnabled: true, // Smooth image rendering
     });
+
+    // Set higher resolution for crisp rendering
+    const ctx = canvas.getContext();
+    if (ctx) {
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+    }
 
     // Selection styling
     canvas.selectionColor = 'rgba(124, 58, 237, 0.1)';
@@ -323,7 +339,7 @@ export default function CanvasEditor({
     fabricRef.current.renderAll();
   }, []);
 
-  // Add image from URL
+  // Add image from URL - HIGH QUALITY
   const addImage = useCallback((url: string) => {
     if (!fabricRef.current) return;
     
@@ -339,6 +355,10 @@ export default function CanvasEditor({
         top: fabricRef.current!.height! / 2,
         originX: 'center',
         originY: 'center',
+        // High quality image settings
+        objectCaching: true,
+        statefullCache: true,
+        noScaleCache: false,
       });
       
       fabricRef.current!.add(img);
@@ -347,7 +367,7 @@ export default function CanvasEditor({
     });
   }, []);
 
-  // Add image from File
+  // Add image from File - HIGH QUALITY
   const addImageFromFile = useCallback((file: File) => {
     if (!fabricRef.current) return;
     
@@ -355,29 +375,39 @@ export default function CanvasEditor({
     reader.onload = (e) => {
       const dataUrl = e.target?.result as string;
       
-      fabric.FabricImage.fromURL(dataUrl, { crossOrigin: 'anonymous' }).then((img: fabric.FabricImage) => {
-        // Scale image to fit nicely
-        const maxWidth = fabricRef.current!.width! * 0.6;
-        const maxHeight = fabricRef.current!.height! * 0.6;
-        const scale = Math.min(maxWidth / img.width!, maxHeight / img.height!, 1);
-        
-        img.scale(scale);
-        img.set({
-          left: fabricRef.current!.width! / 2,
-          top: fabricRef.current!.height! / 2,
-          originX: 'center',
-          originY: 'center',
+      // Create a high-quality image element first
+      const imgElement = new Image();
+      imgElement.crossOrigin = 'anonymous';
+      imgElement.onload = () => {
+        fabric.FabricImage.fromURL(dataUrl, { crossOrigin: 'anonymous' }).then((img: fabric.FabricImage) => {
+          // Scale image to fit nicely but preserve quality
+          const maxWidth = fabricRef.current!.width! * 0.6;
+          const maxHeight = fabricRef.current!.height! * 0.6;
+          const scale = Math.min(maxWidth / img.width!, maxHeight / img.height!, 1);
+          
+          img.scale(scale);
+          img.set({
+            left: fabricRef.current!.width! / 2,
+            top: fabricRef.current!.height! / 2,
+            originX: 'center',
+            originY: 'center',
+            // High quality settings
+            objectCaching: true,
+            statefullCache: true,
+            noScaleCache: false,
+          });
+          
+          fabricRef.current!.add(img);
+          fabricRef.current!.setActiveObject(img);
+          fabricRef.current!.renderAll();
         });
-        
-        fabricRef.current!.add(img);
-        fabricRef.current!.setActiveObject(img);
-        fabricRef.current!.renderAll();
-      });
+      };
+      imgElement.src = dataUrl;
     };
     reader.readAsDataURL(file);
   }, []);
 
-  // Set background image
+  // Set background image - HIGH QUALITY
   const setBackgroundImage = useCallback((file: File) => {
     if (!fabricRef.current) return;
     
@@ -399,6 +429,10 @@ export default function CanvasEditor({
           originY: 'center',
           selectable: false,
           evented: false,
+          // High quality settings
+          objectCaching: true,
+          statefullCache: true,
+          noScaleCache: false,
         });
         
         // Add to back
@@ -866,20 +900,24 @@ export default function CanvasEditor({
     }
   }, [onLayersChange]);
 
-  // Export image
+  // Export image - HIGH QUALITY
   const exportImage = useCallback((format: string = 'png', quality: number = 1): string | null => {
     if (!fabricRef.current) return null;
     
+    // Use 4x multiplier for high quality export
+    const multiplier = 4;
+    
     const dataURL = fabricRef.current.toDataURL({
       format: format as 'png' | 'jpeg',
-      quality,
-      multiplier: 2,
+      quality: format === 'jpeg' ? quality : 1, // PNG doesn't use quality
+      multiplier,
+      enableRetinaScaling: true,
     });
     
     return dataURL;
   }, []);
 
-  // Export multiple sizes
+  // Export multiple sizes - HIGH QUALITY
   const exportMultiple = useCallback((sizes: string[], format: string, quality: number) => {
     if (!fabricRef.current) return;
     
@@ -891,12 +929,15 @@ export default function CanvasEditor({
         const size = CANVAS_SIZES[sizeKey as keyof typeof CANVAS_SIZES];
         if (!size) return;
         
-        const multiplier = Math.max(size.width / originalWidth, size.height / originalHeight);
+        // Use at least 2x multiplier, or scale up for larger exports
+        const baseMultiplier = Math.max(size.width / originalWidth, size.height / originalHeight);
+        const multiplier = Math.max(baseMultiplier * 2, 2); // Minimum 2x for quality
         
         const dataURL = fabricRef.current!.toDataURL({
           format: format as 'png' | 'jpeg',
-          quality,
+          quality: format === 'jpeg' ? quality : 1,
           multiplier,
+          enableRetinaScaling: true,
         });
         
         // Download
@@ -2478,6 +2519,124 @@ export default function CanvasEditor({
     saveStateInternal();
   }, []);
 
+  // Interactive crop - starts crop mode on selected image
+  const startCrop = useCallback(() => {
+    if (!fabricRef.current) return { success: false, message: 'Canvas not ready' };
+    
+    const activeObject = fabricRef.current.getActiveObject();
+    if (!activeObject || activeObject.type !== 'image') {
+      return { success: false, message: 'Please select an image first' };
+    }
+    
+    const img = activeObject as fabric.Image;
+    const imgLeft = img.left || 0;
+    const imgTop = img.top || 0;
+    const imgWidth = (img.width || 100) * (img.scaleX || 1);
+    const imgHeight = (img.height || 100) * (img.scaleY || 1);
+    
+    // Create crop rectangle overlay
+    const cropRect = new fabric.Rect({
+      left: imgLeft + imgWidth * 0.1,
+      top: imgTop + imgHeight * 0.1,
+      width: imgWidth * 0.8,
+      height: imgHeight * 0.8,
+      fill: 'rgba(124, 58, 237, 0.2)',
+      stroke: '#7c3aed',
+      strokeWidth: 2,
+      strokeDashArray: [5, 5],
+      cornerColor: '#7c3aed',
+      cornerStrokeColor: '#fff',
+      cornerSize: 12,
+      transparentCorners: false,
+      hasRotatingPoint: false,
+      lockRotation: true,
+      // @ts-ignore - custom property
+      isCropRect: true,
+      // @ts-ignore
+      targetImage: img,
+    });
+    
+    fabricRef.current.add(cropRect);
+    fabricRef.current.setActiveObject(cropRect);
+    fabricRef.current.renderAll();
+    
+    return { success: true, message: 'Crop mode activated. Adjust the selection and click Apply Crop.' };
+  }, []);
+
+  // Apply the crop
+  const applyCrop = useCallback(() => {
+    if (!fabricRef.current) return { success: false, message: 'Canvas not ready' };
+    
+    const activeObject = fabricRef.current.getActiveObject();
+    // @ts-ignore
+    if (!activeObject || !activeObject.isCropRect) {
+      return { success: false, message: 'No crop selection active' };
+    }
+    
+    // @ts-ignore
+    const targetImage = activeObject.targetImage as fabric.Image;
+    if (!targetImage) {
+      return { success: false, message: 'Target image not found' };
+    }
+    
+    const cropRect = activeObject as fabric.Rect;
+    const cropLeft = cropRect.left || 0;
+    const cropTop = cropRect.top || 0;
+    const cropWidth = (cropRect.width || 100) * (cropRect.scaleX || 1);
+    const cropHeight = (cropRect.height || 100) * (cropRect.scaleY || 1);
+    
+    const imgLeft = targetImage.left || 0;
+    const imgTop = targetImage.top || 0;
+    const imgScaleX = targetImage.scaleX || 1;
+    const imgScaleY = targetImage.scaleY || 1;
+    
+    // Calculate crop coordinates relative to image
+    const relativeLeft = (cropLeft - imgLeft) / imgScaleX;
+    const relativeTop = (cropTop - imgTop) / imgScaleY;
+    const relativeWidth = cropWidth / imgScaleX;
+    const relativeHeight = cropHeight / imgScaleY;
+    
+    // Create clip path
+    const clipPath = new fabric.Rect({
+      left: relativeLeft,
+      top: relativeTop,
+      width: relativeWidth,
+      height: relativeHeight,
+      absolutePositioned: false,
+    });
+    
+    targetImage.set('clipPath', clipPath);
+    
+    // Optionally move image to crop position
+    targetImage.set({
+      left: cropLeft,
+      top: cropTop,
+    });
+    
+    // Remove crop rectangle
+    fabricRef.current.remove(cropRect);
+    fabricRef.current.setActiveObject(targetImage);
+    fabricRef.current.renderAll();
+    saveStateInternal();
+    
+    return { success: true, message: 'Image cropped successfully!' };
+  }, []);
+
+  // Cancel crop mode
+  const cancelCrop = useCallback(() => {
+    if (!fabricRef.current) return;
+    
+    const objects = fabricRef.current.getObjects();
+    objects.forEach(obj => {
+      // @ts-ignore
+      if (obj.isCropRect) {
+        fabricRef.current?.remove(obj);
+      }
+    });
+    fabricRef.current.renderAll();
+    return { success: true, message: 'Crop cancelled' };
+  }, []);
+
   // Enable snap to grid
   const enableSnapToGrid = useCallback((gridSize: number = 10) => {
     if (!fabricRef.current) return;
@@ -2681,6 +2840,10 @@ export default function CanvasEditor({
       setBrushColor,
       setBrushSize,
       clearDrawing,
+      // Crop tools
+      startCrop,
+      applyCrop,
+      cancelCrop,
     };
   }, [addText, addHeading, addRectangle, addCircle, addImage, addImageFromFile,
       setBackgroundImage, removeBackground, deleteSelected, duplicateSelected, 
@@ -2698,11 +2861,18 @@ export default function CanvasEditor({
       addGradientText, blurBackground, addColorOverlay, removeImageFilters,
       distributeHorizontal, distributeVertical, clonePattern, addSocialIcon,
       addPaymentIcon, addDecorativeFrame, addProductPlaceholder,
-      enableDrawingMode, disableDrawingMode, setBrushColor, setBrushSize, clearDrawing]);
+      enableDrawingMode, disableDrawingMode, setBrushColor, setBrushSize, clearDrawing,
+      startCrop, applyCrop, cancelCrop]);
 
   return (
     <div className="relative bg-white rounded-lg shadow-lg" style={{ width, height }}>
-      <canvas ref={canvasRef} />
+      <canvas 
+        ref={canvasRef} 
+        style={{ 
+          imageRendering: 'high-quality',
+          // Prevent blurry canvas on high DPI displays
+        }} 
+      />
     </div>
   );
 }

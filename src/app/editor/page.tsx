@@ -41,7 +41,7 @@ import {
   Heart, CircleDot, Blend, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter,
   Frame, CreditCard, Facebook, Instagram, Twitter, Youtube, Linkedin,
   ShoppingBag, Timer, Flame, BadgePercent, Gift, Truck, Box, Sparkle,
-  Type as TypeIcon, GalleryHorizontalEnd
+  Type as TypeIcon, GalleryHorizontalEnd, Bot
 } from 'lucide-react';
 import PropertiesPanel from '@/components/editor/PropertiesPanel';
 import AdvancedCompliancePanel from '@/components/editor/AdvancedCompliancePanel';
@@ -50,6 +50,7 @@ import ExportPanel from '@/components/editor/ExportPanel';
 import TemplateMarketplace, { Template } from '@/components/editor/TemplateMarketplace';
 import AssetLibrary from '@/components/editor/AssetLibrary';
 import StockImagesLibrary from '@/components/editor/StockImagesLibrary';
+import AICopilotPanel from '@/components/editor/AICopilotPanel';
 import { CANVAS_SIZES } from '@/components/editor/CanvasEditor';
 import * as fabric from 'fabric';
 
@@ -189,6 +190,7 @@ export default function EditorPage() {
   const [showStockImages, setShowStockImages] = useState(false);
   const [showAICopyWriter, setShowAICopyWriter] = useState(false);
   const [isRemovingBg, setIsRemovingBg] = useState(false);
+  const [isCropMode, setIsCropMode] = useState(false);
   const [activeTool, setActiveTool] = useState<'select' | 'pan' | 'text' | 'shape' | 'draw'>('select');
   const [brushColor, setBrushColor] = useState('#000000');
   const [brushSize, setBrushSize] = useState(5);
@@ -212,6 +214,7 @@ export default function EditorPage() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showAIDropdown, setShowAIDropdown] = useState(false);
   const [showImageToolsDropdown, setShowImageToolsDropdown] = useState(false);
+  const [showAICopilot, setShowAICopilot] = useState(false);
 
   // Check authentication - NextAuth session OR custom JWT
   useEffect(() => {
@@ -696,6 +699,39 @@ export default function EditorPage() {
       setIsRemovingBg(false);
     }
   };
+  
+  // Crop handlers
+  const handleStartCrop = () => {
+    if (!selectedObject || selectedObject.type !== 'image') {
+      showNotification('Please select an image first', 'error');
+      return;
+    }
+    const result = editorMethodsRef.current?.startCrop?.();
+    if (result?.success) {
+      setIsCropMode(true);
+      showNotification('Crop mode activated. Adjust the selection and click Apply.', 'info');
+    } else {
+      showNotification(result?.message || 'Failed to start crop', 'error');
+    }
+  };
+
+  const handleApplyCrop = () => {
+    const result = editorMethodsRef.current?.applyCrop?.();
+    if (result?.success) {
+      setIsCropMode(false);
+      showNotification('Image cropped successfully!', 'success');
+      updateLayers();
+    } else {
+      showNotification(result?.message || 'Failed to apply crop', 'error');
+    }
+  };
+
+  const handleCancelCrop = () => {
+    editorMethodsRef.current?.cancelCrop?.();
+    setIsCropMode(false);
+    showNotification('Crop cancelled', 'info');
+  };
+  
   const handleApplyFilter = (filter: string) => editorMethodsRef.current?.applyFilter?.(filter);
   const handleAdjustImage = (type: string, value: number) => editorMethodsRef.current?.adjustImage?.(type, value);
   const handleAddTextShadow = (blur: number, offsetX: number, offsetY: number, color: string) => {
@@ -1402,6 +1438,39 @@ export default function EditorPage() {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2">
+          {/* Crop Button */}
+          {!isCropMode ? (
+            <button
+              onClick={handleStartCrop}
+              disabled={!selectedObject || selectedObject?.type !== 'image'}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                selectedObject?.type === 'image' 
+                  ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+                  : 'bg-white/5 text-gray-500 cursor-not-allowed'
+              } disabled:opacity-50`}
+            >
+              <Crop size={16} />
+              Crop
+            </button>
+          ) : (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleApplyCrop}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-green-500 hover:bg-green-600 text-white"
+              >
+                <Check size={16} />
+                Apply
+              </button>
+              <button
+                onClick={handleCancelCrop}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-red-500 hover:bg-red-600 text-white"
+              >
+                <X size={16} />
+                Cancel
+              </button>
+            </div>
+          )}
+          
           {/* Remove Background Button - Prominent */}
           <button
             onClick={handleRemoveBackground}
@@ -1789,6 +1858,21 @@ export default function EditorPage() {
         <div className="flex items-center gap-0.5">
           <IconButton icon={Wand2} onClick={handleAutoArrange} tooltip="Auto Arrange" size="sm" />
           <IconButton icon={Palette} onClick={handleExtractColors} tooltip="Extract Colors" size="sm" />
+          <ToolbarDivider />
+          
+          {/* AI Agent Button */}
+          <button
+            onClick={() => setShowAICopilot(!showAICopilot)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              showAICopilot 
+                ? 'bg-gradient-to-r from-violet-500 to-pink-500 text-white' 
+                : 'bg-gradient-to-r from-violet-500/10 to-pink-500/10 text-violet-400 hover:from-violet-500/20 hover:to-pink-500/20'
+            }`}
+          >
+            <Bot size={14} />
+            <span>AI Agent</span>
+          </button>
+          
           <ToolbarDivider />
           <IconButton 
             icon={PanelLeftClose} 
@@ -2467,6 +2551,20 @@ export default function EditorPage() {
         onSelectImage={handleAddStockImage}
         onSetBackground={handleSetStockBackground}
         onAddLogo={handleAddLogo}
+      />
+
+      {/* AI Copilot Panel */}
+      <AICopilotPanel
+        isOpen={showAICopilot}
+        onClose={() => setShowAICopilot(false)}
+        editorMethods={editorMethodsRef.current}
+        selectedObject={selectedObject}
+        canvasInfo={{
+          width: canvasSize.width,
+          height: canvasSize.height,
+          backgroundColor: bgColor,
+          objectCount: layers.length,
+        }}
       />
 
       {/* Global Styles */}

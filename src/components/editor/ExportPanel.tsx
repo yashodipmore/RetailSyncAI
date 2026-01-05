@@ -50,7 +50,7 @@ const ExportPanel: React.FC<ExportPanelProps> = ({
   onClose
 }) => {
   const [format, setFormat] = useState('png');
-  const [quality, setQuality] = useState(0.9);
+  const [quality, setQuality] = useState(1); // Default to max quality
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [isExporting, setIsExporting] = useState(false);
   const [activeTab, setActiveTab] = useState<'single' | 'batch'>('single');

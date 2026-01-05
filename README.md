@@ -9,25 +9,19 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16.1.1-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-19.2.3-61DAFB?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tailwind-4.0-06B6D4?style=for-the-badge&logo=tailwindcss" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Next.js-16.1.1-black?style=flat-square&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind-4.0-06B6D4?style=flat-square&logo=tailwindcss" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Fabric.js-7.1-FF6900?style=flat-square" alt="Fabric.js" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Fabric.js-7.1.0-FF6900?style=for-the-badge" alt="Fabric.js" />
-  <img src="https://img.shields.io/badge/Groq-LLaMA%203.3-00D4AA?style=for-the-badge" alt="Groq" />
-  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Tesco%20Hackathon-2025-EE1C2E?style=flat-square" alt="Tesco Hackathon" />
+  <img src="https://img.shields.io/badge/Team-Sarthak-9333EA?style=flat-square" alt="Team Sarthak" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Hackathon-Tesco%202025-EE1C2E?style=for-the-badge" alt="Tesco Hackathon" />
-  <img src="https://img.shields.io/badge/Team-Sarthak-9333EA?style=for-the-badge" alt="Team Sarthak" />
-</p>
-
-<p align="center">
-  <a href="#overview">Overview</a> •
   <a href="#problem">Problem</a> •
   <a href="#solution">Solution</a> •
   <a href="#features">Features</a> •
@@ -42,194 +36,158 @@
 
 RetailSync AI transforms the retail advertisement creation process through intelligent automation. The platform combines a professional canvas editor with AI-powered design assistance, enabling retail media teams to create compliant, high-quality ads in minutes instead of hours.
 
-<p align="center">
-  <a href="https://retail-sync-ai.vercel.app">
-    <img src="https://img.shields.io/badge/Live%20Demo-Visit%20Site-00D4AA?style=for-the-badge&logo=vercel" alt="Live Demo" />
-  </a>
-  <a href="https://github.com/yashodipmore/RetailSyncAI">
-    <img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github" alt="GitHub" />
-  </a>
-</p>
+**Live Demo:** [retail-sync-ai.vercel.app](https://retail-sync-ai.vercel.app)
 
 ---
 
 ## Problem
 
-### Current Challenges in Retail Media
+### The Reality of Retail Media Today
 
-<table>
-  <tr>
-    <td align="center"><img src="https://img.shields.io/badge/Manual%20Design-4--6%20hours-DC2626?style=flat-square" /></td>
-    <td>Each advertisement requires specialized design skills and extensive time</td>
-  </tr>
-  <tr>
-    <td align="center"><img src="https://img.shields.io/badge/Brand%20Inconsistency-30%25%20revision-F59E0B?style=flat-square" /></td>
-    <td>Ads frequently violate brand guidelines requiring multiple revisions</td>
-  </tr>
-  <tr>
-    <td align="center"><img src="https://img.shields.io/badge/Slow%20Delivery-48--72%20hours-EF4444?style=flat-square" /></td>
-    <td>From brief to final approval takes multiple days</td>
-  </tr>
-  <tr>
-    <td align="center"><img src="https://img.shields.io/badge/High%20Cost-₹2000--5000%2Fad-DC2626?style=flat-square" /></td>
-    <td>Designer dependency and tool costs add up</td>
-  </tr>
-  <tr>
-    <td align="center"><img src="https://img.shields.io/badge/Limited%20Scale-Bottleneck-9CA3AF?style=flat-square" /></td>
-    <td>Cannot meet demand during peak campaign periods</td>
-  </tr>
-</table>
+Retail media is a **$110+ billion industry** growing at 30%+ annually. Organizations like Tesco manage thousands of SKUs across multiple categories, each requiring advertisements for various placements, seasons, and promotions.
 
-### The Traditional Workflow
+**But there's a fundamental problem:** The ad creation process hasn't evolved with the demand.
+
+### What We Discovered
+
+After researching the retail media landscape and interviewing marketing teams, we identified critical bottlenecks:
+
+#### 1. Time-Intensive Manual Process
+
+Every advertisement goes through a lengthy cycle:
+
+| Stage | Time Required | What Happens |
+|-------|---------------|--------------|
+| Brief Creation | 30 minutes | Marketing team drafts requirements |
+| Design Queue | 24-48 hours | Waiting for designer availability |
+| Initial Design | 2-3 hours | Designer creates first draft |
+| Review & Feedback | 1-2 hours | Stakeholder reviews and comments |
+| Revisions | 2-4 hours | Average 3-4 revision rounds |
+| Compliance Check | 2-4 hours | Manual brand guideline verification |
+| Final Approval | 1-2 hours | Multiple stakeholder sign-offs |
+
+**Total: 48-72 hours per single advertisement**
+
+#### 2. Brand Compliance Failures
+
+- **30% of ads fail** first compliance review
+- Manual verification misses subtle violations
+- Inconsistent logo placement, wrong colors, typography issues
+- Each failure adds another revision cycle
+
+#### 3. Resource Bottleneck
+
+- 100% dependency on skilled designers
+- Cannot scale during peak campaign periods (festivals, sales)
+- High cost per ad: ₹2,000-5,000
+- Limited designers = limited output
+
+#### 4. The Scale Problem
+
+Tesco operates:
+- **80,000+ SKUs** across categories
+- **4,000+ stores** with different formats
+- **20M+ Clubcard users** for personalized campaigns
+
+Traditional workflow simply cannot meet this demand.
+
+### The Gap We Identified
 
 ```
-Brief Creation    →    Design Queue    →    Revisions    →    Compliance    →    Approval
-    30 mins            24-48 hours        3-4 rounds        2-4 hours        1-2 hours
+Current Capacity:  ~50 ads/week with full design team
+Actual Demand:     500+ ads/week during campaigns
+Gap:               10x shortage in production capacity
 ```
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Total%20Time-48--72%20hours-DC2626?style=for-the-badge" alt="Total Time" />
-</p>
 
 ---
 
 ## Solution
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Traditional-4--6%20Hours-DC2626?style=for-the-badge" alt="Traditional" />
-  <img src="https://img.shields.io/badge/→-95%25%20Faster-22C55E?style=for-the-badge" alt="Faster" />
-  <img src="https://img.shields.io/badge/RetailSync%20AI-<%205%20Minutes-22C55E?style=for-the-badge" alt="RetailSync" />
-</p>
+### Our Approach: AI-First Design
+
+Instead of incremental improvements, we reimagined the entire workflow with AI at the core.
+
+### The RetailSync AI Difference
+
+| Metric | Traditional | RetailSync AI | Improvement |
+|--------|-------------|---------------|-------------|
+| Ad Creation Time | 4-6 hours | **< 5 minutes** | 95% faster |
+| Designer Dependency | 100% | **10%** | 90% reduction |
+| Brand Compliance | 70% first-pass | **98% first-pass** | 40% better |
+| Cost per Ad | ₹2,000-5,000 | **₹200-500** | 90% cheaper |
+| Revision Rounds | 3-4 | **0-1** | 75% fewer |
 
 ### How It Works
 
-<table>
-  <tr>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Step%201-Upload-2563EB?style=for-the-badge" /><br/><br/>
-      <strong>Upload Assets</strong><br/>
-      Upload your product images and brand assets
-    </td>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Step%202-Design-9333EA?style=for-the-badge" /><br/><br/>
-      <strong>AI Design Assistant</strong><br/>
-      Use natural language commands to design
-    </td>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Step%203-Export-22C55E?style=for-the-badge" /><br/><br/>
-      <strong>Export & Deploy</strong><br/>
-      Download compliant ads in multiple formats
-    </td>
-  </tr>
-</table>
+**Step 1: Upload Assets**
+- Upload product images directly
+- AI removes background automatically
+- Access millions of stock images from Pexels
 
-### Key Metrics
+**Step 2: AI Design Assistant**
+- Use natural language: "add red circle", "set background to blue"
+- 70+ commands for complete design control
+- AI understands context and executes instantly
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Time%20Saved-95%25-22C55E?style=for-the-badge" alt="Time Saved" />
-  <img src="https://img.shields.io/badge/Cost%20Reduction-90%25-22C55E?style=for-the-badge" alt="Cost Reduction" />
-  <img src="https://img.shields.io/badge/Compliance%20Rate-98%25-22C55E?style=for-the-badge" alt="Compliance" />
-  <img src="https://img.shields.io/badge/AI%20Commands-70+-9333EA?style=for-the-badge" alt="AI Commands" />
-</p>
+**Step 3: Compliance & Export**
+- Real-time brand guideline validation
+- Automatic suggestions for fixes
+- Export in PNG, JPEG, WebP formats
 
+### Why This Works
+
+1. **Natural Language Interface** - No design skills needed. Just describe what you want.
+2. **Instant Execution** - Sub-second AI responses via Groq LLaMA 3.3
+3. **Built-in Compliance** - Catch brand violations before they happen
+4. **One-Click Operations** - Background removal, filters, effects - all instant
 ---
 
 ## Features
 
-### Core Features
+### Canvas Editor
 
-<table>
-  <tr>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Canvas%20Editor-Fabric.js-2563EB?style=for-the-badge" /><br/><br/>
-      Professional design environment with multi-layer support, transforms, and keyboard shortcuts
-    </td>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/AI%20Agent-70+%20Commands-9333EA?style=for-the-badge" /><br/><br/>
-      Natural language design assistant powered by Groq LLaMA 3.3 70B
-    </td>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Background%20Removal-One%20Click-22C55E?style=for-the-badge" /><br/><br/>
-      AI-powered background removal via Remove.bg API
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Stock%20Images-Pexels%20API-F59E0B?style=for-the-badge" /><br/><br/>
-      Millions of royalty-free images with one-click add to canvas
-    </td>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Compliance-Real--time-DC2626?style=for-the-badge" /><br/><br/>
-      Automatic brand guideline validation and suggestions
-    </td>
-    <td align="center" width="33%">
-      <img src="https://img.shields.io/badge/Export-PNG%20|%20JPEG%20|%20WebP-06B6D4?style=for-the-badge" /><br/><br/>
-      Multi-format export with quality control
-    </td>
-  </tr>
-</table>
+Professional design environment built on Fabric.js 7.1.0:
 
-### AI Agent Commands
+- **Multi-Layer Composition** - Z-index management for complex designs
+- **Object Transforms** - Resize, rotate, flip, align with precision
+- **Grid & Snap** - Professional positioning guides
+- **History Management** - Full undo/redo support
+- **Keyboard Shortcuts** - Professional workflow optimization
 
-Natural language design assistant with **70+ commands**:
+### AI Agent (70+ Commands)
+
+Natural language design assistant powered by Groq LLaMA 3.3 70B:
 
 | Category | Commands | Examples |
 |----------|----------|----------|
-| ![](https://img.shields.io/badge/Shapes-blue) | Circle, Rectangle, Star, Triangle, Line | `add circle`, `add blue rectangle` |
-| ![](https://img.shields.io/badge/Text-purple) | Text, Heading, Curved, Gradient | `add text SALE`, `add heading 50% OFF` |
-| ![](https://img.shields.io/badge/Background-orange) | Color, Gradient, Blur, Image | `red background`, `blur background` |
-| ![](https://img.shields.io/badge/Transform-green) | Flip, Rotate, Scale, Align | `flip horizontal`, `rotate 45` |
-| ![](https://img.shields.io/badge/Effects-pink) | Shadow, Glow, Border, Filter | `add shadow`, `add glow effect` |
-| ![](https://img.shields.io/badge/Retail-red) | Price Tag, Ribbon, Badge | `add price tag ₹999`, `add sale ribbon` |
-| ![](https://img.shields.io/badge/Image-cyan) | Remove BG, Crop, Filter | `remove background`, `crop image` |
-| ![](https://img.shields.io/badge/Export-gray) | PNG, JPEG, WebP | `export png`, `export jpeg` |
+| Shapes | Circle, Rectangle, Star, Triangle | `add red circle`, `add blue rectangle` |
+| Text | Text, Heading, Curved | `add text SALE`, `add heading 50% OFF` |
+| Background | Color, Gradient, Blur | `red background`, `blur background` |
+| Transform | Flip, Rotate, Scale | `flip horizontal`, `rotate 45` |
+| Effects | Shadow, Glow, Border | `add shadow`, `add glow effect` |
+| Retail | Price Tag, Ribbon, Badge | `add price tag ₹999`, `add sale ribbon` |
+| Export | PNG, JPEG, WebP | `export png`, `export jpeg` |
 
-### Canvas Editor
+### Integrations
 
-| Feature | Description |
-|---------|-------------|
-| **Multi-layer** | Z-index management for complex compositions |
-| **Transform** | Resize, rotate, flip, align objects |
-| **Grid & Snap** | Precision positioning with guides |
-| **Preview** | Real-time preview across formats |
-| **History** | Full undo/redo support |
-| **Shortcuts** | Professional keyboard shortcuts |
-
-### Brand Compliance
-
-| Check | Status |
-|-------|--------|
-| Logo placement | ![](https://img.shields.io/badge/-Validated-22C55E) |
-| Color palette | ![](https://img.shields.io/badge/-Enforced-22C55E) |
-| Typography | ![](https://img.shields.io/badge/-Guidelines%20Met-22C55E) |
-| Font sizes | ![](https://img.shields.io/badge/-Minimum%20Met-22C55E) |
-| Aspect ratio | ![](https://img.shields.io/badge/-Correct-22C55E) |
-| Spacing | ![](https://img.shields.io/badge/-Brand%20Compliant-22C55E) |
+- **Remove.bg** - One-click AI background removal
+- **Pexels** - Millions of royalty-free stock images
+- **Google OAuth** - Secure authentication
 
 ---
 
 ## Tech Stack
 
-### Frontend
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| ![](https://img.shields.io/badge/Next.js-black?logo=next.js) | 16.1.1 | React framework with App Router |
-| ![](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black) | 19.2.3 | UI library |
-| ![](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) | 5.x | Type safety |
-| ![](https://img.shields.io/badge/Tailwind-06B6D4?logo=tailwindcss&logoColor=white) | 4.x | Utility-first styling |
-| ![](https://img.shields.io/badge/Fabric.js-FF6900) | 7.1.0 | Canvas manipulation |
-
-### Backend & Services
-
-| Technology | Purpose |
-|------------|---------|
-| ![](https://img.shields.io/badge/NextAuth-black) | Authentication |
-| ![](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white) | Database |
-| ![](https://img.shields.io/badge/Groq-00D4AA) | LLM API (LLaMA 3.3 70B) |
-| ![](https://img.shields.io/badge/Remove.bg-1A1A2E) | Background removal |
-| ![](https://img.shields.io/badge/Pexels-05A081) | Stock images |
-| ![](https://img.shields.io/badge/Google-4285F4?logo=google&logoColor=white) | OAuth provider |
+| Layer | Technology | Version |
+|-------|------------|---------|
+| Framework | Next.js | 16.1.1 |
+| UI Library | React | 19.2.3 |
+| Language | TypeScript | 5.x |
+| Styling | Tailwind CSS | 4.x |
+| Canvas | Fabric.js | 7.1.0 |
+| AI | Groq LLaMA 3.3 | 70B |
+| Database | MongoDB Atlas | - |
+| Auth | NextAuth.js | 5.x |
 
 ---
 
@@ -411,70 +369,42 @@ Background removal endpoint.
 
 ## Performance
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Performance-95+-22C55E?style=for-the-badge" alt="Performance" />
-  <img src="https://img.shields.io/badge/Accessibility-90+-22C55E?style=for-the-badge" alt="Accessibility" />
-  <img src="https://img.shields.io/badge/Best%20Practices-95+-22C55E?style=for-the-badge" alt="Best Practices" />
-  <img src="https://img.shields.io/badge/SEO-100-22C55E?style=for-the-badge" alt="SEO" />
-</p>
-
 | Metric | Value |
 |--------|-------|
 | First Contentful Paint | < 1.5s |
 | Largest Contentful Paint | < 2.5s |
 | Cumulative Layout Shift | < 0.1 |
 | AI Response Time | < 0.5s |
+| Lighthouse Score | 95+ |
 
 ---
 
 ## Team Sarthak
 
-<table>
-  <tr>
-    <td align="center">
-      <strong>Yashodip More</strong><br/>
-      <sub>Full Stack Developer</sub><br/>
-      <img src="https://img.shields.io/badge/AI%20Integration-9333EA?style=flat-square" />
-    </td>
-    <td align="center">
-      <strong>Komal Kumavat</strong><br/>
-      <sub>UI/UX Designer</sub><br/>
-      <img src="https://img.shields.io/badge/Design%20Systems-EC4899?style=flat-square" />
-    </td>
-    <td align="center">
-      <strong>Jaykumar Girase</strong><br/>
-      <sub>Backend Developer</sub><br/>
-      <img src="https://img.shields.io/badge/API%20Architecture-22C55E?style=flat-square" />
-    </td>
-    <td align="center">
-      <strong>Tejas Patil</strong><br/>
-      <sub>ML Engineer</sub><br/>
-      <img src="https://img.shields.io/badge/Model%20Training-F59E0B?style=flat-square" />
-    </td>
-  </tr>
-</table>
+| Member | Role | Focus Area |
+|--------|------|------------|
+| **Yashodip More** | Full Stack Developer | AI Integration, System Architecture |
+| **Komal Kumavat** | UI/UX Designer | Design Systems, User Experience |
+| **Jaykumar Girase** | Backend Developer | API Architecture, Database |
+| **Tejas Patil** | ML Engineer | Model Training, Quality Analysis |
 
-<p align="center">
-  <strong>Sandip University, Nashik</strong> — Final Year B.Tech Students
-</p>
+**Institution:** Sandip University, Nashik — Final Year B.Tech Students
 
 ---
 
 ## Documentation
 
-| Document | Description |
-|----------|-------------|
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | System architecture with diagrams |
-| [RESEARCH_AND_DEVELOPMENT.md](./RESEARCH_AND_DEVELOPMENT.md) | R&D documentation |
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture with Mermaid diagrams
+- [RESEARCH_AND_DEVELOPMENT.md](./RESEARCH_AND_DEVELOPMENT.md) - R&D documentation
 
 ---
 
 ## License
 
-This project was created for the **Tesco Retail Media Hackathon 2025**.
+Created for **Tesco Retail Media Hackathon 2025** by Team Sarthak.
 
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/RetailSync%20AI-Transforming%20Retail%20Media-9333EA?style=for-the-badge" alt="RetailSync AI" />
+  <strong>RetailSync AI — Transforming Retail Media Creation</strong>
 </p>

@@ -207,6 +207,8 @@ export default function EditorPage() {
     createdAt?: string;
   } | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showAIDropdown, setShowAIDropdown] = useState(false);
+  const [showImageToolsDropdown, setShowImageToolsDropdown] = useState(false);
 
   // Check authentication - NextAuth session OR custom JWT
   useEffect(() => {
@@ -569,7 +571,7 @@ export default function EditorPage() {
   };
 
   // Decorative frames
-  const handleAddFrame = (style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy') => {
+  const handleAddFrame = (style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy' | 'gradient' | 'shadow' | 'neon' | 'dotted' | 'thick') => {
     editorMethodsRef.current?.addDecorativeFrame?.(style);
     showNotification('Frame added', 'success');
     updateLayers();
@@ -1557,6 +1559,127 @@ export default function EditorPage() {
           <IconButton icon={AlignEndVertical} onClick={() => handleAlignObject('bottom')} tooltip="Align Bottom" size="sm" disabled={!selectedObject} />
         </div>
         
+        <ToolbarDivider />
+        
+        {/* AI Copywriter Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setShowAIDropdown(!showAIDropdown)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              showAIDropdown 
+                ? 'bg-violet-500 text-white' 
+                : 'bg-violet-500/10 text-violet-400 hover:bg-violet-500/20'
+            }`}
+          >
+            <Sparkles size={14} />
+            <span>AI Copy</span>
+            <ChevronDown size={12} className={`transition-transform ${showAIDropdown ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {showAIDropdown && (
+            <div className="absolute top-full left-0 mt-2 w-72 bg-[#1a1a24] border border-white/10 rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="p-3 border-b border-white/10">
+                <p className="text-xs font-medium text-white mb-2">Generate Ad Copy</p>
+                <input
+                  type="text"
+                  value={aiPrompt}
+                  onChange={(e) => setAiPrompt(e.target.value)}
+                  placeholder="e.g., 50% off electronics sale..."
+                  className="w-full px-3 py-2 bg-[#16161d] border border-white/10 rounded-lg text-xs text-white placeholder-gray-500 focus:outline-none focus:border-violet-500"
+                />
+                <button
+                  onClick={() => { handleGenerateAdCopy(); setShowAIDropdown(false); }}
+                  disabled={isAiLoading}
+                  className="w-full mt-2 flex items-center justify-center gap-2 py-2 rounded-lg bg-violet-500 hover:bg-violet-600 text-white text-xs font-medium disabled:opacity-50"
+                >
+                  {isAiLoading ? (
+                    <><div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Generating...</>
+                  ) : (
+                    <><Sparkles size={12} /> Generate</>
+                  )}
+                </button>
+              </div>
+              <div className="p-2 grid grid-cols-2 gap-1.5">
+                <button onClick={() => { handleSuggestColors(); setShowAIDropdown(false); }} disabled={isAiLoading} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-gray-300">
+                  <Palette size={12} className="text-cyan-400" /> AI Colors
+                </button>
+                <button onClick={() => { handleImproveText(); setShowAIDropdown(false); }} disabled={isAiLoading} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-gray-300">
+                  <Wand2 size={12} className="text-pink-400" /> Improve Text
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {/* Image Tools Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setShowImageToolsDropdown(!showImageToolsDropdown)}
+            disabled={!selectedObject || selectedObject?.type !== 'image'}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              showImageToolsDropdown 
+                ? 'bg-cyan-500 text-white' 
+                : selectedObject?.type === 'image'
+                  ? 'bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20'
+                  : 'bg-white/5 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            <Image size={14} />
+            <span>Image</span>
+            <ChevronDown size={12} className={`transition-transform ${showImageToolsDropdown ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {showImageToolsDropdown && selectedObject?.type === 'image' && (
+            <div className="absolute top-full left-0 mt-2 w-64 bg-[#1a1a24] border border-white/10 rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="p-2 border-b border-white/10">
+                <p className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Mask to Shape</p>
+                <div className="grid grid-cols-5 gap-1">
+                  <button onClick={() => { handleMaskImage('circle'); setShowImageToolsDropdown(false); }} className="aspect-square rounded bg-white/5 hover:bg-white/10 flex items-center justify-center" title="Circle">
+                    <Circle size={14} className="text-gray-400" />
+                  </button>
+                  <button onClick={() => { handleMaskImage('triangle'); setShowImageToolsDropdown(false); }} className="aspect-square rounded bg-white/5 hover:bg-white/10 flex items-center justify-center" title="Triangle">
+                    <Triangle size={14} className="text-gray-400" />
+                  </button>
+                  <button onClick={() => { handleMaskImage('star'); setShowImageToolsDropdown(false); }} className="aspect-square rounded bg-white/5 hover:bg-white/10 flex items-center justify-center" title="Star">
+                    <Star size={14} className="text-gray-400" />
+                  </button>
+                  <button onClick={() => { handleMaskImage('hexagon'); setShowImageToolsDropdown(false); }} className="aspect-square rounded bg-white/5 hover:bg-white/10 flex items-center justify-center" title="Hexagon">
+                    <Hexagon size={14} className="text-gray-400" />
+                  </button>
+                  <button onClick={() => { handleMaskImage('heart'); setShowImageToolsDropdown(false); }} className="aspect-square rounded bg-white/5 hover:bg-white/10 flex items-center justify-center" title="Heart">
+                    <Heart size={14} className="text-gray-400" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-2 border-b border-white/10">
+                <p className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Smart Fit</p>
+                <div className="grid grid-cols-3 gap-1">
+                  <button onClick={() => { handleSmartFit('contain'); setShowImageToolsDropdown(false); }} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">Contain</button>
+                  <button onClick={() => { handleSmartFit('cover'); setShowImageToolsDropdown(false); }} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">Cover</button>
+                  <button onClick={() => { handleSmartFit('fill'); setShowImageToolsDropdown(false); }} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">Fill</button>
+                </div>
+              </div>
+              <div className="p-2">
+                <p className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Effects</p>
+                <div className="grid grid-cols-2 gap-1">
+                  <button onClick={() => { handleAddGlow('#ffffff', 20); setShowImageToolsDropdown(false); }} className="flex items-center gap-1.5 p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">
+                    <Sparkle size={12} className="text-yellow-400" /> Glow
+                  </button>
+                  <button onClick={() => { handleAddImageOutline('#000000', 3); setShowImageToolsDropdown(false); }} className="flex items-center gap-1.5 p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">
+                    <CircleDot size={12} /> Outline
+                  </button>
+                  <button onClick={() => { handleAddColorOverlay('#000000', 0.5); setShowImageToolsDropdown(false); }} className="flex items-center gap-1.5 p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">
+                    <Blend size={12} className="text-blue-400" /> Overlay
+                  </button>
+                  <button onClick={() => { handleRemoveImageFilters(); setShowImageToolsDropdown(false); }} className="flex items-center gap-1.5 p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">
+                    <Eraser size={12} className="text-red-400" /> Clear
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        
         <div className="flex-1" />
         
         {/* Right Side Tools */}
@@ -1753,80 +1876,40 @@ export default function EditorPage() {
                   </div>
                 </Section>
 
-                {/* AI Features Section - Using Groq (FREE!) */}
-                <Section title="🤖 AI Copywriter">
-                  <div className="space-y-3">
-                    {/* AI Ad Copy Generation */}
-                    <div className="space-y-2">
-                      <p className="text-[10px] text-gray-500 uppercase tracking-wide">Generate Ad Copy</p>
-                      <input
-                        type="text"
-                        value={aiPrompt}
-                        onChange={(e) => setAiPrompt(e.target.value)}
-                        placeholder="e.g., 50% off electronics sale..."
-                        className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-white placeholder-gray-500 focus:outline-none focus:border-violet-500"
-                      />
-                      <button
-                        onClick={handleGenerateAdCopy}
-                        disabled={isAiLoading}
-                        className="w-full flex items-center justify-center gap-2 p-2 rounded-lg bg-gradient-to-r from-violet-500/20 to-purple-500/20 hover:from-violet-500/30 hover:to-purple-500/30 border border-violet-500/20 transition-colors disabled:opacity-50"
-                      >
-                        <Sparkles size={14} className="text-violet-400" />
-                        <span className="text-xs text-violet-300">{isAiLoading ? 'Generating...' : 'Generate Ad Copy'}</span>
-                      </button>
-                    </div>
-                    
-                    {/* AI Tools */}
-                    <div className="space-y-2">
-                      <p className="text-[10px] text-gray-500 uppercase tracking-wide">AI Tools</p>
-                      <div className="grid grid-cols-2 gap-2">
-                        <button
-                          onClick={handleSuggestColors}
-                          disabled={isAiLoading}
-                          className="flex items-center gap-2 p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 transition-colors disabled:opacity-50"
-                        >
-                          <Palette size={14} className="text-cyan-400" />
-                          <span className="text-[10px] text-cyan-300">AI Colors</span>
-                        </button>
-                        <button
-                          onClick={handleImproveText}
-                          disabled={isAiLoading}
-                          className="flex items-center gap-2 p-2 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/20 transition-colors disabled:opacity-50"
-                        >
-                          <Wand2 size={14} className="text-pink-400" />
-                          <span className="text-[10px] text-pink-300">Improve Text</span>
-                        </button>
-                        <button
-                          onClick={handleRemoveBackground}
-                          className="flex items-center gap-2 p-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition-colors col-span-2"
-                        >
-                          <Eraser size={14} className="text-amber-400" />
-                          <span className="text-[10px] text-amber-300">Remove Background (Remove.bg)</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Section>
-
                 {/* Frames & Placeholders */}
                 <Section title="Frames & Placeholders">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <p className="text-[10px] text-gray-500 uppercase tracking-wide">Decorative Frames</p>
                     <div className="grid grid-cols-5 gap-1.5">
-                      <button onClick={() => handleAddFrame('simple')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center" title="Simple">
+                      <button onClick={() => handleAddFrame('simple')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center" title="Simple Border">
                         <Square size={14} className="text-gray-400" />
                       </button>
-                      <button onClick={() => handleAddFrame('double')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center" title="Double">
+                      <button onClick={() => handleAddFrame('double')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center" title="Double Border">
                         <Frame size={14} className="text-gray-400" />
                       </button>
-                      <button onClick={() => handleAddFrame('dashed')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-dashed border-white/10 flex items-center justify-center" title="Dashed">
+                      <button onClick={() => handleAddFrame('dashed')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-dashed border-white/10 flex items-center justify-center" title="Dashed Border">
                         <Square size={14} className="text-gray-400" strokeDasharray="3 2" />
                       </button>
                       <button onClick={() => handleAddFrame('rounded')} className="aspect-square rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center" title="Rounded">
                         <Square size={14} className="text-gray-400" style={{ borderRadius: 4 }} />
                       </button>
-                      <button onClick={() => handleAddFrame('fancy')} className="aspect-square rounded bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/20 flex items-center justify-center" title="Fancy">
+                      <button onClick={() => handleAddFrame('fancy')} className="aspect-square rounded bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/20 flex items-center justify-center" title="Fancy Gold">
                         <Crown size={14} className="text-yellow-400" />
+                      </button>
+                      <button onClick={() => handleAddFrame('gradient')} className="aspect-square rounded bg-gradient-to-br from-violet-500/20 to-pink-500/20 hover:from-violet-500/30 hover:to-pink-500/30 border border-violet-500/20 flex items-center justify-center" title="Gradient">
+                        <Blend size={14} className="text-violet-400" />
+                      </button>
+                      <button onClick={() => handleAddFrame('shadow')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center shadow-lg" title="Shadow Box">
+                        <Square size={14} className="text-blue-400" />
+                      </button>
+                      <button onClick={() => handleAddFrame('neon')} className="aspect-square rounded bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 flex items-center justify-center" title="Neon Glow">
+                        <Sparkle size={14} className="text-green-400" />
+                      </button>
+                      <button onClick={() => handleAddFrame('dotted')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-dotted border-white/20 flex items-center justify-center" title="Dotted">
+                        <CircleDot size={14} className="text-gray-400" />
+                      </button>
+                      <button onClick={() => handleAddFrame('thick')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border-2 border-white/20 flex items-center justify-center" title="Thick Border">
+                        <Square size={14} className="text-orange-400" strokeWidth={2.5} />
                       </button>
                     </div>
                     <p className="text-[10px] text-gray-500 uppercase tracking-wide mt-3">Product Placeholders</p>
@@ -1864,55 +1947,6 @@ export default function EditorPage() {
                       <Blend size={14} className="text-pink-400" />
                       <span className="text-xs text-gray-300">Gradient</span>
                     </button>
-                  </div>
-                </Section>
-
-                {/* Image Tools */}
-                <Section title="Image Tools">
-                  <div className="space-y-2">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wide">Mask to Shape</p>
-                    <div className="grid grid-cols-5 gap-1.5">
-                      <button onClick={() => handleMaskImage('circle')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center" title="Circle Mask">
-                        <Circle size={14} className="text-gray-400" />
-                      </button>
-                      <button onClick={() => handleMaskImage('triangle')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center" title="Triangle Mask">
-                        <Triangle size={14} className="text-gray-400" />
-                      </button>
-                      <button onClick={() => handleMaskImage('star')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center" title="Star Mask">
-                        <Star size={14} className="text-gray-400" />
-                      </button>
-                      <button onClick={() => handleMaskImage('hexagon')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center" title="Hexagon Mask">
-                        <Hexagon size={14} className="text-gray-400" />
-                      </button>
-                      <button onClick={() => handleMaskImage('heart')} className="aspect-square rounded bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center" title="Heart Mask">
-                        <Heart size={14} className="text-gray-400" />
-                      </button>
-                    </div>
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wide mt-3">Smart Fit</p>
-                    <div className="grid grid-cols-3 gap-1.5">
-                      <button onClick={() => handleSmartFit('contain')} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">Contain</button>
-                      <button onClick={() => handleSmartFit('cover')} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">Cover</button>
-                      <button onClick={() => handleSmartFit('fill')} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-gray-400">Fill</button>
-                    </div>
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wide mt-3">Effects</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button onClick={() => handleAddGlow('#ffffff', 20)} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
-                        <Sparkle size={14} className="text-yellow-400" />
-                        <span className="text-xs text-gray-400">Glow</span>
-                      </button>
-                      <button onClick={() => handleAddImageOutline('#000000', 3)} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
-                        <CircleDot size={14} className="text-gray-400" />
-                        <span className="text-xs text-gray-400">Outline</span>
-                      </button>
-                      <button onClick={() => handleAddColorOverlay('#000000', 0.5)} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
-                        <Blend size={14} className="text-blue-400" />
-                        <span className="text-xs text-gray-400">Overlay</span>
-                      </button>
-                      <button onClick={handleRemoveImageFilters} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
-                        <Eraser size={14} className="text-red-400" />
-                        <span className="text-xs text-gray-400">Clear</span>
-                      </button>
-                    </div>
                   </div>
                 </Section>
 

@@ -89,7 +89,7 @@ export interface CanvasRef {
   clonePattern: (rows?: number, cols?: number, spacingX?: number, spacingY?: number) => void;
   addSocialIcon: (platform: 'facebook' | 'instagram' | 'twitter' | 'youtube' | 'whatsapp' | 'linkedin') => void;
   addPaymentIcon: (method: 'upi' | 'visa' | 'mastercard' | 'cod' | 'paytm' | 'gpay') => void;
-  addDecorativeFrame: (style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy') => void;
+  addDecorativeFrame: (style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy' | 'gradient' | 'shadow' | 'neon' | 'dotted' | 'thick') => void;
   addProductPlaceholder: (size?: 'small' | 'medium' | 'large') => void;
 }
 
@@ -1655,7 +1655,7 @@ export default function CanvasEditor({
   }, []);
 
   // Add decorative frame
-  const addDecorativeFrame = useCallback((style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy') => {
+  const addDecorativeFrame = useCallback((style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy' | 'gradient' | 'shadow' | 'neon' | 'dotted' | 'thick') => {
     if (!fabricRef.current) return;
     
     const padding = 20;
@@ -1742,6 +1742,135 @@ export default function CanvasEditor({
           new fabric.Rect({ width: cornerSize, height: cornerSize, fill: '#D4AF37', left: width - cornerSize + 2, top: height - cornerSize + 2 }),
         ];
         frame = new fabric.Group([mainFrame, ...corners], {
+          left: padding,
+          top: padding,
+        });
+        break;
+      case 'gradient':
+        // Purple to pink gradient border effect
+        const gradientOuter = new fabric.Rect({
+          width,
+          height,
+          fill: 'transparent',
+          stroke: '#8B5CF6',
+          strokeWidth: 4,
+          rx: 8,
+          ry: 8,
+        });
+        const gradientInner = new fabric.Rect({
+          width: width - 8,
+          height: height - 8,
+          fill: 'transparent',
+          stroke: '#EC4899',
+          strokeWidth: 2,
+          rx: 6,
+          ry: 6,
+          left: 4,
+          top: 4,
+        });
+        frame = new fabric.Group([gradientOuter, gradientInner], {
+          left: padding,
+          top: padding,
+        });
+        break;
+      case 'shadow':
+        // Shadow box effect with multiple layers
+        const shadowBack = new fabric.Rect({
+          width,
+          height,
+          fill: 'transparent',
+          stroke: '#666666',
+          strokeWidth: 3,
+          left: 6,
+          top: 6,
+        });
+        const shadowFront = new fabric.Rect({
+          width,
+          height,
+          fill: 'transparent',
+          stroke: '#3B82F6',
+          strokeWidth: 3,
+        });
+        frame = new fabric.Group([shadowBack, shadowFront], {
+          left: padding,
+          top: padding,
+        });
+        break;
+      case 'neon':
+        // Neon glow effect with multiple borders
+        const neonOuter = new fabric.Rect({
+          width: width + 8,
+          height: height + 8,
+          fill: 'transparent',
+          stroke: '#22C55E',
+          strokeWidth: 1,
+          opacity: 0.3,
+          rx: 12,
+          ry: 12,
+          left: -4,
+          top: -4,
+        });
+        const neonMid = new fabric.Rect({
+          width: width + 4,
+          height: height + 4,
+          fill: 'transparent',
+          stroke: '#22C55E',
+          strokeWidth: 2,
+          opacity: 0.5,
+          rx: 10,
+          ry: 10,
+          left: -2,
+          top: -2,
+        });
+        const neonInner = new fabric.Rect({
+          width,
+          height,
+          fill: 'transparent',
+          stroke: '#22C55E',
+          strokeWidth: 3,
+          rx: 8,
+          ry: 8,
+        });
+        frame = new fabric.Group([neonOuter, neonMid, neonInner], {
+          left: padding,
+          top: padding,
+        });
+        break;
+      case 'dotted':
+        frame = new fabric.Rect({
+          width,
+          height,
+          fill: 'transparent',
+          stroke: '#666666',
+          strokeWidth: 3,
+          strokeDashArray: [3, 6],
+          left: padding,
+          top: padding,
+        });
+        break;
+      case 'thick':
+        // Thick bold border
+        const thickOuter = new fabric.Rect({
+          width,
+          height,
+          fill: 'transparent',
+          stroke: '#F97316',
+          strokeWidth: 8,
+          rx: 4,
+          ry: 4,
+        });
+        const thickInner = new fabric.Rect({
+          width: width - 16,
+          height: height - 16,
+          fill: 'transparent',
+          stroke: '#FDBA74',
+          strokeWidth: 2,
+          rx: 2,
+          ry: 2,
+          left: 8,
+          top: 8,
+        });
+        frame = new fabric.Group([thickOuter, thickInner], {
           left: padding,
           top: padding,
         });

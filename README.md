@@ -1,429 +1,511 @@
-# RetailSync AI
+<p align="center">
+  <img src="public/tesco-logo.svg" alt="RetailSync AI" width="200" />
+</p>
 
-**AI-Powered Retail Media Ad Creation Platform**
+<h1 align="center">RetailSync AI</h1>
 
-> Built for Tesco Retail Media Hackathon 2025
+<p align="center">
+  <strong>AI-Powered Retail Media Ad Creation Platform</strong>
+</p>
 
----
+<p align="center">
+  Built for <strong>Tesco Retail Media Hackathon 2025</strong> by Team Sarthak
+</p>
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Problem Statement](#problem-statement)
-- [Our Solution](#our-solution)
-- [Key Features](#key-features)
-- [System Architecture](#system-architecture)
-- [Technology Stack](#technology-stack)
-- [API Integrations](#api-integrations)
-- [Data Flow](#data-flow)
-- [Project Structure](#project-structure)
-- [Security & Compliance](#security--compliance)
-- [Performance Optimizations](#performance-optimizations)
-- [Future Roadmap](#future-roadmap)
-- [Team](#team)
+<p align="center">
+  <a href="#problem">Problem</a> •
+  <a href="#solution">Solution</a> •
+  <a href="#features">Features</a> •
+  <a href="#ai-integration">AI</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#setup">Setup</a> •
+  <a href="#team">Team</a>
+</p>
 
 ---
 
 ## Overview
 
-RetailSync AI is an intelligent retail media advertisement creation platform designed specifically for Tesco's retail ecosystem. The platform leverages artificial intelligence to streamline the ad creation process, ensuring brand compliance, visual consistency, and rapid production of high-quality marketing assets.
+RetailSync AI transforms the retail advertisement creation process through intelligent automation. The platform combines a professional canvas editor with AI-powered design assistance, enabling retail media teams to create compliant, high-quality ads in minutes instead of hours.
 
-The platform addresses the critical challenge faced by retail media teams: creating compliant, visually appealing advertisements at scale while maintaining brand guidelines and reducing time-to-market.
+**Live Demo:** [retail-sync-ai.vercel.app](https://retail-sync-ai.vercel.app)
 
 ---
 
-## Problem Statement
+## Problem
 
 ### Current Challenges in Retail Media
 
-| Challenge | Impact |
-|-----------|--------|
-| **Manual Ad Creation** | 4-6 hours per advertisement, limiting campaign scalability |
-| **Brand Inconsistency** | 30% of ads require revision due to guideline violations |
-| **Resource Intensive** | Requires specialized design skills and expensive tools |
-| **Slow Time-to-Market** | 48-72 hours from brief to final approved asset |
-| **Compliance Issues** | Manual verification leads to errors and brand dilution |
-
-### The Gap We Identified
-
-Retail media teams at organizations like Tesco manage thousands of SKUs across multiple categories. Each product may require multiple ad variants for different placements, seasons, and promotions. The traditional workflow creates bottlenecks:
-
-1. **Brief Creation** → Marketing team drafts requirements
-2. **Design Queue** → Designers are overwhelmed with requests
-3. **Revision Cycles** → Average 3-4 rounds of feedback
-4. **Compliance Check** → Manual verification against brand guidelines
-5. **Final Approval** → Multiple stakeholder sign-offs
-
-This process is unsustainable for modern retail media operations that demand agility and scale.
-
----
-
-## Our Solution
-
-RetailSync AI transforms the ad creation workflow through intelligent automation:
-
-```
-Traditional: 4-6 hours per ad → RetailSync AI: Under 5 minutes
+```mermaid
+mindmap
+  root((Retail Media Challenges))
+    Manual Design
+      4-6 hours per ad
+      Specialized skills needed
+    Brand Inconsistency
+      30% revision rate
+      Guideline violations
+    Slow Delivery
+      48-72 hours total
+      Multiple approval rounds
+    Resource Intensive
+      Expensive tools
+      Limited scalability
 ```
 
-### Core Value Propositions
+### The Traditional Workflow
 
-**1. AI-Powered Design Assistance**
-- Intelligent layout suggestions based on content type
-- Automated color harmony and typography pairing
-- Smart object positioning with rule-of-thirds alignment
+```mermaid
+flowchart LR
+    A[ Brief] --> B[ Design Queue]
+    B --> C[ Revisions]
+    C --> D[ Compliance]
+    D --> E[👍 Approval]
+    
+    A -.- |30 mins| A
+    B -.- |24-48 hrs| B
+    C -.- |3-4 rounds| C
+    D -.- |2-4 hrs| D
+    E -.- |1-2 hrs| E
 
-**2. Real-Time Brand Compliance**
-- Continuous validation against Tesco brand guidelines
-- Automated logo placement and safe zone verification
-- Color palette enforcement with accessibility checks
+    style A fill:#fee2e2,stroke:#dc2626
+    style B fill:#fef3c7,stroke:#f59e0b
+    style C fill:#fef3c7,stroke:#f59e0b
+    style D fill:#fef3c7,stroke:#f59e0b
+    style E fill:#dcfce7,stroke:#16a34a
+```
 
-**3. Instant Background Processing**
-- One-click background removal for product images
-- AI-powered background generation and replacement
-- Seamless integration with product photography workflow
-
-**4. Intelligent Copy Generation**
-- Context-aware headline and tagline suggestions
-- Promotional copy that adheres to advertising standards
-- Multi-variant generation for A/B testing
-
----
-
-## Key Features
-
-### Canvas Editor
-A professional-grade design environment built for speed and precision:
-- Multi-layer composition with z-index management
-- Precise object manipulation (resize, rotate, flip, align)
-- Grid and snap-to-guide functionality
-- Real-time preview across multiple ad formats
-
-### AI Integration Suite
-- **Text Generation**: Groq LLM integration for instant copy creation
-- **Image Processing**: Remove.bg API for background removal
-- **Asset Discovery**: Pexels API for royalty-free stock imagery
-- **Quality Scoring**: TensorFlow.js model for ad effectiveness prediction
-
-### Template Marketplace
-- Pre-approved templates for common retail scenarios
-- Category-specific designs (grocery, electronics, fashion)
-- Seasonal and promotional templates
-- Custom template creation and sharing
-
-### Export & Distribution
-- Multiple format export (PNG, JPEG, WebP)
-- Resolution optimization for different placements
-- Direct integration capability with ad platforms
-- Batch export for campaign assets
+**Total: 48-72 hours per advertisement**
 
 ---
 
-## System Architecture
+## Solution
 
-### High-Level Architecture
+RetailSync AI reduces ad creation time by **95%**:
+
+```mermaid
+graph LR
+    subgraph Traditional[" TRADITIONAL"]
+        T1[4-6 Hours]
+    end
+    
+    subgraph RetailSync[" RETAILSYNC AI"]
+        R1[< 5 Minutes]
+    end
+
+    Traditional -.->|95% Faster| RetailSync
+
+    style Traditional fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+    style RetailSync fill:#d1fae5,stroke:#059669,stroke-width:2px
+```
+
+### How It Works
+
+```mermaid
+flowchart LR
+    subgraph Step1[" STEP 1"]
+        Upload[Upload Assets]
+    end
+    
+    subgraph Step2[" STEP 2"]
+        AI[AI Design Assistant]
+    end
+    
+    subgraph Step3[" STEP 3"]
+        Export[Export & Deploy]
+    end
+
+    Step1 -->|Product Images| Step2
+    Step2 -->|Compliant Ads| Step3
+
+    style Step1 fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+    style Step2 fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    style Step3 fill:#d1fae5,stroke:#059669,stroke-width:2px
+```
+
+---
+
+## Features
+
+### Feature Overview
 
 ```mermaid
 flowchart TB
-    subgraph Client["Client Layer"]
+    subgraph Core[" CORE FEATURES"]
+        Canvas[Canvas Editor]
+        AI[AI Agent]
+        BG[Background Removal]
+    end
+
+    subgraph Assets[" ASSET MANAGEMENT"]
+        Stock[Stock Images]
+        Library[Asset Library]
+        Templates[Templates]
+    end
+
+    subgraph Output[" OUTPUT"]
+        Export[Multi-format Export]
+        Compliance[Brand Compliance]
+        Quality[Quality Check]
+    end
+
+    Core --> Assets
+    Assets --> Output
+
+    style Core fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+    style Assets fill:#fef3c7,stroke:#f59e0b,stroke-width:2px
+    style Output fill:#d1fae5,stroke:#059669,stroke-width:2px
+```
+
+### Canvas Editor
+
+Professional-grade design environment built with Fabric.js:
+
+| Feature | Description |
+|---------|-------------|
+| Multi-layer | Z-index management for complex compositions |
+| Transform | Resize, rotate, flip, align objects |
+| Grid & Snap | Precision positioning with guides |
+| Preview | Real-time preview across formats |
+| History | Full undo/redo support |
+| Shortcuts | Professional keyboard shortcuts |
+
+### AI Agent (70+ Commands)
+
+Natural language design assistant powered by Groq LLaMA 3.3:
+
+```mermaid
+flowchart LR
+    subgraph Commands[" AI AGENT COMMANDS"]
+        direction TB
+        Shapes[Shapes]
+        Text[Text]
+        BG[Background]
+        Transform[Transform]
+        Effects[Effects]
+        Retail[Retail Elements]
+    end
+
+    User[ User] -->|Natural Language| Commands
+    Commands -->|Execute| Canvas[ Canvas]
+
+    style Commands fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    style User fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+    style Canvas fill:#d1fae5,stroke:#059669,stroke-width:2px
+```
+
+| Category | Commands |
+|----------|----------|
+| **Shapes** | `add circle`, `add rectangle`, `add star`, `add triangle` |
+| **Text** | `add text SALE`, `add heading`, `add curved text` |
+| **Background** | `red background`, `gradient bg`, `blur background` |
+| **Transform** | `flip horizontal`, `rotate 45`, `scale 150%` |
+| **Arrange** | `bring to front`, `align center`, `distribute` |
+| **Effects** | `add shadow`, `add glow`, `add border` |
+| **Retail** | `add price tag ₹999`, `add ribbon`, `add badge` |
+| **Image** | `remove background`, `apply filter`, `crop` |
+| **Export** | `export png`, `export jpeg`, `export webp` |
+
+**Sample AI Commands:**
+
+```bash
+# Add elements
+"add circle"
+"add rectangle blue"
+"add text Special Offer"
+"add heading 50% OFF"
+
+# Background
+"set background to red"
+"gradient background blue purple"
+"blur background"
+
+# Transform
+"flip selected horizontally"
+"rotate 90 degrees"
+"scale up 150%"
+
+# Retail specific
+"add price tag ₹999"
+"add sale ribbon"
+"add product placeholder"
+
+# Effects
+"add drop shadow"
+"add glow effect"
+"add border"
+```
+
+### Background Removal
+
+One-click AI-powered background removal via Remove.bg API:
+
+```mermaid
+flowchart LR
+    A[ Original Image] -->|AI Processing| B[ Transparent BG]
+    
+    style A fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+    style B fill:#d1fae5,stroke:#059669,stroke-width:2px
+```
+
+### Stock Images Library
+
+Integrated Pexels API for royalty-free imagery:
+
+| Feature | Description |
+|---------|-------------|
+| Search | Millions of royalty-free images |
+| Categories | Pre-curated retail collections |
+| One-click | Direct add to canvas |
+| Quality | High-resolution downloads |
+
+### Brand Compliance
+
+Real-time validation against brand guidelines:
+
+```mermaid
+flowchart LR
+    Design[ Design] --> Check{ Compliance Check}
+    Check -->|Pass| Export[ Export]
+    Check -->|Fail| Fix[ Auto-Fix Suggestions]
+    Fix --> Design
+
+    style Design fill:#dbeafe,stroke:#2563eb
+    style Check fill:#fef3c7,stroke:#f59e0b
+    style Export fill:#d1fae5,stroke:#059669
+    style Fix fill:#fee2e2,stroke:#dc2626
+```
+
+| Check | Status |
+|-------|--------|
+| Logo placement |  Validated |
+| Color palette |  Enforced |
+| Typography |  Guidelines met |
+| Font sizes |  Minimum met |
+| Aspect ratio |  Correct |
+| Spacing |  Brand compliant |
+
+### Export Options
+
+Multiple format support for various platforms:
+
+| Format | Quality | Use Case |
+|--------|---------|----------|
+| PNG | Lossless | Transparency support |
+| JPEG | Adjustable | Web optimization |
+| WebP | Best | Modern browsers |
+
+---
+
+## AI Integration
+
+### Architecture Overview
+
+```mermaid
+flowchart TB
+    subgraph Client[" CLIENT LAYER"]
         UI[Next.js Frontend]
         Canvas[Canvas Editor]
-        State[Zustand State Management]
+        State[React State]
     end
 
-    subgraph API["API Gateway Layer"]
-        NextAPI[Next.js API Routes]
+    subgraph API[" API LAYER"]
+        Routes[Next.js API Routes]
         Auth[NextAuth.js]
-        Middleware[Request Middleware]
     end
 
-    subgraph Services["Service Layer"]
-        AIService[AI Service Controller]
-        ImageService[Image Processing Service]
-        TemplateService[Template Service]
-        ExportService[Export Service]
-    end
-
-    subgraph External["External APIs"]
-        Groq[Groq LLM API]
+    subgraph AI[" AI SERVICES"]
+        Groq[Groq LLaMA 3.3 70B]
         RemoveBG[Remove.bg API]
-        Pexels[Pexels Stock API]
-        Google[Google OAuth]
+        Pexels[Pexels API]
     end
 
-    subgraph Storage["Data Layer"]
+    subgraph DB[" DATABASE"]
         MongoDB[(MongoDB Atlas)]
-        LocalStorage[Browser Storage]
     end
 
-    subgraph ML["ML Layer"]
-        TFModel[TensorFlow.js Model]
-        QualityScore[Quality Predictor]
-    end
-
-    UI --> NextAPI
-    Canvas --> State
-    State --> UI
-    
-    NextAPI --> Auth
-    NextAPI --> Middleware
-    Middleware --> Services
-    
-    AIService --> Groq
-    ImageService --> RemoveBG
-    ImageService --> Pexels
-    Auth --> Google
+    UI --> Routes
+    Canvas --> UI
+    State --> Canvas
+    Routes --> Auth
+    Routes --> Groq
+    Routes --> RemoveBG
+    Routes --> Pexels
     Auth --> MongoDB
-    
-    Services --> MongoDB
-    UI --> LocalStorage
-    
-    Canvas --> TFModel
-    TFModel --> QualityScore
+
+    style Client fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+    style API fill:#fef3c7,stroke:#f59e0b,stroke-width:2px
+    style AI fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    style DB fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+```
+
+### AI Copilot Flow
+
+```mermaid
+sequenceDiagram
+    participant U as  User
+    participant E as  Editor
+    participant A as  API
+    participant G as  Groq AI
+    participant C as  Canvas
+
+    U->>E: "add red circle"
+    E->>A: POST /api/ai-copilot
+    A->>G: Process Command
+    G-->>A: Actions Array
+    A-->>E: { command: "addCircle", params: { color: "red" } }
+    E->>C: Execute Command
+    C-->>U: Circle Added 
+```
+
+### Supported AI Models
+
+| Service | Model | Purpose |
+|---------|-------|---------|
+| Groq | LLaMA 3.3 70B Versatile | Natural language command processing |
+| Remove.bg | AI Background Removal | Product image background removal |
+| Pexels | Image Search API | Stock image discovery |
+
+---
+
+## Architecture
+
+### System Overview
+
+```mermaid
+flowchart TB
+    subgraph Frontend[" FRONTEND"]
+        direction TB
+        Next[Next.js 16]
+        React[React 19]
+        Fabric[Fabric.js Canvas]
+        Tailwind[Tailwind CSS]
+    end
+
+    subgraph Backend[" BACKEND"]
+        direction TB
+        APIRoutes[API Routes]
+        NextAuth[NextAuth.js]
+        Middleware[Middleware]
+    end
+
+    subgraph External[" EXTERNAL SERVICES"]
+        direction TB
+        Google[Google OAuth]
+        Groq[Groq AI]
+        RemoveBG[Remove.bg]
+        PexelsAPI[Pexels]
+    end
+
+    subgraph Database[" DATABASE"]
+        MongoDB[(MongoDB Atlas)]
+    end
+
+    Frontend --> Backend
+    Backend --> External
+    Backend --> Database
+    NextAuth --> Google
+    APIRoutes --> Groq
+    APIRoutes --> RemoveBG
+    APIRoutes --> PexelsAPI
+
+    style Frontend fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+    style Backend fill:#fef9c3,stroke:#ca8a04,stroke-width:2px
+    style External fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    style Database fill:#d1fae5,stroke:#059669,stroke-width:2px
 ```
 
 ### Authentication Flow
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Frontend
-    participant Middleware
-    participant NextAuth
-    participant Google
-    participant MongoDB
+    participant U as  User
+    participant F as  Frontend
+    participant N as  NextAuth
+    participant G as  Google
+    participant D as  MongoDB
 
-    User->>Frontend: Click "Sign in with Google"
-    Frontend->>NextAuth: Initiate OAuth Flow
-    NextAuth->>Google: Redirect to Google OAuth
-    Google->>User: Display Consent Screen
-    User->>Google: Grant Permission
-    Google->>NextAuth: Return Authorization Code
-    NextAuth->>Google: Exchange Code for Tokens
-    Google->>NextAuth: Return Access & ID Tokens
-    NextAuth->>MongoDB: Create/Update User Record
-    MongoDB->>NextAuth: Confirm User Stored
-    NextAuth->>Frontend: Set Session Cookie
-    Frontend->>Middleware: Request Protected Route
-    Middleware->>Middleware: Validate Session Token
-    Middleware->>Frontend: Allow Access to Editor
+    U->>F: Click "Sign in with Google"
+    F->>N: Initiate OAuth
+    N->>G: Redirect to Google
+    G->>U: Show Consent Screen
+    U->>G: Approve
+    G->>N: Return Token
+    N->>D: Save Session
+    D-->>N: Session Stored
+    N->>F: Redirect to Dashboard
+    F-->>U: Welcome! 
 ```
 
-### Ad Creation Pipeline
+### Data Flow
 
 ```mermaid
 flowchart LR
-    subgraph Input["Input Stage"]
-        Upload[Image Upload]
-        Template[Template Selection]
-        Text[Text Input]
+    subgraph Input[" INPUT"]
+        Upload[Upload Image]
+        Command[AI Command]
+        Template[Select Template]
     end
 
-    subgraph Processing["Processing Stage"]
-        BGRemove[Background Removal]
-        AIGen[AI Text Generation]
-        Compose[Canvas Composition]
+    subgraph Process[" PROCESSING"]
+        Canvas[Canvas Editor]
+        AI[AI Agent]
+        Compliance[Compliance Check]
     end
 
-    subgraph Validation["Validation Stage"]
-        Brand[Brand Compliance Check]
-        Quality[Quality Score Analysis]
-        Preview[Multi-Format Preview]
+    subgraph Output[" OUTPUT"]
+        PNG[PNG Export]
+        JPEG[JPEG Export]
+        WebP[WebP Export]
     end
 
-    subgraph Output["Output Stage"]
-        Export[Export Engine]
-        Download[Download Assets]
-    end
+    Upload --> Canvas
+    Command --> AI
+    Template --> Canvas
+    AI --> Canvas
+    Canvas --> Compliance
+    Compliance --> PNG
+    Compliance --> JPEG
+    Compliance --> WebP
 
-    Upload --> BGRemove
-    Template --> Compose
-    Text --> AIGen
-    
-    BGRemove --> Compose
-    AIGen --> Compose
-    
-    Compose --> Brand
-    Brand --> Quality
-    Quality --> Preview
-    
-    Preview --> Export
-    Export --> Download
+    style Input fill:#fce7f3,stroke:#db2777,stroke-width:2px
+    style Process fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px
+    style Output fill:#d1fae5,stroke:#059669,stroke-width:2px
 ```
 
 ---
 
-## Technology Stack
+## Tech Stack
 
-### Frontend Architecture
+### Frontend
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| Framework | Next.js 16 | Server-side rendering, API routes, file-based routing |
-| Language | TypeScript | Type safety, enhanced developer experience |
-| Styling | Tailwind CSS | Utility-first CSS, rapid UI development |
-| State | Zustand | Lightweight state management for canvas operations |
-| Canvas | HTML5 Canvas API | High-performance 2D rendering |
-| Icons | Lucide React | Consistent, accessible iconography |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| Next.js | 16.1.1 | React framework with App Router |
+| React | 19.2.3 | UI library |
+| TypeScript | 5.x | Type safety |
+| Tailwind CSS | 4.x | Utility-first styling |
+| Fabric.js | 7.1.0 | Canvas manipulation |
+| Lucide React | 0.562.0 | Icon library |
 
-### Backend Architecture
+### Backend
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| Runtime | Node.js 20 | JavaScript runtime for server operations |
-| API | Next.js API Routes | RESTful endpoints, serverless functions |
-| Authentication | NextAuth.js | OAuth providers, session management |
-| Database | MongoDB Atlas | Document storage, user data persistence |
-| Validation | Zod | Runtime schema validation |
+| Technology | Purpose |
+|------------|---------|
+| Next.js API Routes | Backend endpoints |
+| NextAuth.js | Authentication |
+| MongoDB + Mongoose | Database |
+| bcryptjs | Password hashing |
+| jsonwebtoken | JWT tokens |
 
-### Machine Learning
+### AI & ML
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| Runtime | TensorFlow.js | Browser-based ML inference |
-| Model Format | Keras → TFJS | Converted model for web deployment |
-| Training | Python + TensorFlow | Offline model training pipeline |
-
----
-
-## API Integrations
-
-### Groq LLM API
-
-**Purpose**: AI-powered text generation for ad copy, headlines, and taglines.
-
-**Integration Details**:
-- Model: LLaMA 3.3 70B Versatile
-- Endpoint: `https://api.groq.com/openai/v1/chat/completions`
-- Authentication: Bearer token
-- Rate Limit: 30 requests/minute
-
-**Use Cases**:
-- Generate compelling product headlines
-- Create promotional taglines
-- Suggest call-to-action text
-- Produce A/B test variants
-
-**Request Flow**:
-```
-User Input → Context Building → Groq API → Response Parsing → UI Display
-```
-
-### Remove.bg API
-
-**Purpose**: Automated background removal from product images.
-
-**Integration Details**:
-- Endpoint: `https://api.remove.bg/v1.0/removebg`
-- Authentication: API Key header
-- Output Format: PNG with transparency
-- Processing: Server-side to protect API key
-
-**Technical Implementation**:
-- Image uploaded as base64 or URL
-- API returns transparent PNG
-- Result cached for session duration
-- Fallback to manual editing if API unavailable
-
-### Pexels API
-
-**Purpose**: Access to royalty-free stock photography and backgrounds.
-
-**Integration Details**:
-- Endpoint: `https://api.pexels.com/v1/search`
-- Authentication: API Key header
-- Results: Paginated (15 per page)
-- Licensing: Free for commercial use
-
-**Features Utilized**:
-- Keyword-based image search
-- Curated collections for retail categories
-- Multiple resolution downloads
-- Attribution handling
-
-### Google OAuth 2.0
-
-**Purpose**: Secure user authentication without password management.
-
-**Integration Details**:
-- Provider: Google Cloud Platform
-- Scopes: `email`, `profile`, `openid`
-- Token Type: JWT
-- Session: Server-side with HTTP-only cookies
-
-**Security Measures**:
-- PKCE flow for authorization
-- Secure cookie attributes
-- CSRF token validation
-- Session rotation on sensitive operations
-
----
-
-## Data Flow
-
-### State Management Architecture
-
-```mermaid
-flowchart TB
-    subgraph UserActions["User Actions"]
-        Click[Click Events]
-        Drag[Drag Operations]
-        Input[Form Inputs]
-    end
-
-    subgraph StateLayer["State Layer - Zustand"]
-        CanvasState[Canvas State]
-        ElementState[Element State]
-        HistoryState[History Stack]
-        UIState[UI State]
-    end
-
-    subgraph Persistence["Persistence"]
-        LocalStorage[Local Storage]
-        SessionStorage[Session Storage]
-        ServerSync[Server Sync]
-    end
-
-    subgraph Rendering["Rendering"]
-        ReactRender[React Re-render]
-        CanvasRender[Canvas Redraw]
-    end
-
-    Click --> CanvasState
-    Drag --> ElementState
-    Input --> UIState
-    
-    CanvasState --> HistoryState
-    ElementState --> HistoryState
-    
-    HistoryState --> LocalStorage
-    UIState --> SessionStorage
-    CanvasState --> ServerSync
-    
-    CanvasState --> ReactRender
-    ElementState --> CanvasRender
-    ReactRender --> CanvasRender
-```
-
-### Canvas Element Lifecycle
-
-```mermaid
-stateDiagram-v2
-    [*] --> Created: Add Element
-    Created --> Selected: User Click
-    Selected --> Editing: Double Click
-    Editing --> Selected: Blur/Enter
-    Selected --> Transforming: Drag Handle
-    Transforming --> Selected: Mouse Up
-    Selected --> Deleted: Delete Key
-    Deleted --> [*]
-    
-    Selected --> Duplicated: Ctrl+D
-    Duplicated --> Selected
-    
-    Selected --> Layered: Layer Change
-    Layered --> Selected
-```
+| Service | Purpose |
+|---------|---------|
+| Groq LLaMA 3.3 70B | Natural language processing |
+| Remove.bg API | Background removal |
+| Pexels API | Stock images |
+| TensorFlow.js | Client-side ML |
 
 ---
 
@@ -431,163 +513,273 @@ stateDiagram-v2
 
 ```
 retailsync-nextjs/
+│
 ├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── api/                # API Routes
-│   │   │   ├── auth/           # NextAuth configuration
-│   │   │   ├── ai/             # AI service endpoints
-│   │   │   ├── remove-bg/      # Background removal proxy
-│   │   │   └── stock-images/   # Pexels API proxy
-│   │   ├── auth/               # Authentication pages
-│   │   ├── editor/             # Main canvas editor
-│   │   └── page.tsx            # Landing page
+│   ├── app/                          # Next.js App Router
+│   │   ├── api/                      # API Routes
+│   │   │   ├── ai-copilot/           # AI Agent endpoint
+│   │   │   ├── auth/                 # NextAuth endpoints
+│   │   │   ├── remove-bg/            # Background removal
+│   │   │   └── huggingface/          # ML inference
+│   │   │
+│   │   ├── auth/                     # Auth pages
+│   │   ├── dashboard/                # User dashboard
+│   │   ├── editor/                   # Canvas editor
+│   │   ├── templates/                # Template gallery
+│   │   ├── analytics/                # Analytics dashboard
+│   │   ├── profile/                  # User profile
+│   │   │
+│   │   ├── layout.tsx                # Root layout
+│   │   ├── page.tsx                  # Landing page
+│   │   └── globals.css               # Global styles
 │   │
-│   ├── components/             # React Components
-│   │   ├── layout/             # Navigation, Footer
-│   │   ├── providers/          # Context Providers
-│   │   ├── editor/             # Editor-specific components
-│   │   └── ui/                 # Reusable UI components
+│   ├── components/
+│   │   ├── canvas/                   # Canvas components
+│   │   ├── editor/                   # Editor panels
+│   │   │   ├── AICopilotPanel.tsx    # AI Agent (70+ commands)
+│   │   │   ├── AICopyWriter.tsx      # Copy generation
+│   │   │   ├── AIQualityPrediction.tsx
+│   │   │   ├── AssetLibrary.tsx      # Asset management
+│   │   │   ├── CanvasEditor.tsx      # Main editor
+│   │   │   ├── CompliancePanel.tsx   # Brand compliance
+│   │   │   ├── ExportPanel.tsx       # Export options
+│   │   │   ├── LayersPanel.tsx       # Layer management
+│   │   │   ├── PropertiesPanel.tsx   # Object properties
+│   │   │   ├── StockImagesLibrary.tsx # Pexels integration
+│   │   │   ├── TemplateMarketplace.tsx
+│   │   │   └── Toolbar.tsx           # Editor toolbar
+│   │   │
+│   │   ├── layout/                   # Layout components
+│   │   ├── providers/                # Context providers
+│   │   └── ui/                       # Reusable UI components
 │   │
-│   ├── lib/                    # Utility Libraries
-│   │   ├── api.ts              # API client functions
-│   │   ├── auth.ts             # Authentication utilities
-│   │   └── canvas.ts           # Canvas helper functions
-│   │
-│   ├── stores/                 # Zustand State Stores
-│   │   └── canvasStore.ts      # Canvas state management
-│   │
-│   ├── types/                  # TypeScript Definitions
-│   │   └── index.ts            # Shared type definitions
-│   │
-│   └── middleware.ts           # Request middleware
+│   ├── hooks/                        # Custom React hooks
+│   ├── lib/                          # Utilities
+│   ├── models/                       # MongoDB models
+│   ├── styles/                       # Additional styles
+│   └── types/                        # TypeScript types
 │
-├── public/                     # Static Assets
-│   └── assets/                 # Images, icons, fonts
+├── public/                           # Static assets
+│   ├── team/                         # Team photos
+│   └── tesco-logo.svg                # Brand assets
 │
-├── models/                     # ML Models
-│   └── tfjs_model/             # TensorFlow.js model files
+├── docs/                             # Documentation
 │
-└── training/                   # ML Training Pipeline
-    ├── train_ad_quality_model.py
-    ├── prepare_data.py
-    └── inference.py
+├── .env.local                        # Environment variables
+├── next.config.ts                    # Next.js config
+├── tailwind.config.ts                # Tailwind config
+├── tsconfig.json                     # TypeScript config
+└── package.json                      # Dependencies
 ```
 
 ---
 
-## Security & Compliance
+## Setup
 
-### Authentication Security
+### Prerequisites
 
-| Measure | Implementation |
-|---------|----------------|
-| OAuth 2.0 | Industry-standard authorization framework |
-| JWT Tokens | Stateless, cryptographically signed sessions |
-| HTTP-Only Cookies | XSS attack prevention |
-| CSRF Protection | Token-based request validation |
-| Secure Headers | CSP, X-Frame-Options, HSTS |
+```
+Node.js      >= 18.0.0
+npm          >= 9.0.0
+MongoDB      Atlas account
+```
 
-### API Security
+### Environment Variables
 
-| Measure | Implementation |
-|---------|----------------|
-| Server-Side Proxy | API keys never exposed to client |
-| Rate Limiting | Request throttling per user/IP |
-| Input Validation | Zod schema validation on all endpoints |
-| Error Handling | Sanitized error messages |
+Create `.env.local` in the root directory:
 
-### Data Privacy
+```env
+# Authentication
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
 
-- User data stored in encrypted MongoDB Atlas cluster
-- No personal data shared with external APIs
-- Session data cleared on logout
-- GDPR-compliant data handling practices
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
 
----
+# Database
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/retailsync
 
-## Performance Optimizations
+# AI Services
+GROQ_API_KEY=your-groq-api-key
+REMOVE_BG_API_KEY=your-removebg-api-key
+PEXELS_API_KEY=your-pexels-api-key
+```
 
-### Frontend Optimizations
+### Installation
 
-| Optimization | Benefit |
-|--------------|---------|
-| Next.js Turbopack | 700ms faster cold starts |
-| Image Optimization | Automatic WebP conversion, lazy loading |
-| Code Splitting | Route-based chunking, reduced initial bundle |
-| Canvas Throttling | 60fps rendering with requestAnimationFrame |
+```bash
+# Clone the repository
+git clone https://github.com/yashodipmore/RetailSync-AI.git
 
-### API Optimizations
+# Navigate to project
+cd RetailSync-AI/retailsync-nextjs
 
-| Optimization | Benefit |
-|--------------|---------|
-| Response Caching | Reduced API calls for repeated requests |
-| Parallel Requests | Concurrent API calls where possible |
-| Streaming Responses | Progressive content loading |
-| Connection Pooling | MongoDB connection reuse |
+# Install dependencies
+npm install
 
-### ML Model Optimizations
+# Start development server
+npm run dev
+```
 
-| Optimization | Benefit |
-|--------------|---------|
-| Model Quantization | 4x smaller model size |
-| WebGL Backend | GPU-accelerated inference |
-| Lazy Loading | Model loaded on first use |
+### Build for Production
 
----
+```bash
+# Build
+npm run build
 
-## Future Roadmap
+# Start production server
+npm start
+```
 
-### Phase 2: Enhanced AI Capabilities
-- Multi-modal AI for image understanding
-- Automated layout generation from brief
-- Style transfer for brand consistency
+### Deployment
 
-### Phase 3: Platform Integration
-- Direct publishing to Tesco Retail Media
-- Campaign performance analytics
-- A/B test automation
+The project is configured for Vercel deployment:
 
-### Phase 4: Enterprise Features
-- Team collaboration workspaces
-- Asset management system
-- Approval workflow automation
-- Brand guideline enforcement engine
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
 
 ---
 
-## Team
+## API Reference
 
-### Team Sarthak
+### AI Copilot
 
-We are a group of passionate developers and designers committed to solving real-world problems through technology.
+```
+POST /api/ai-copilot
 
-| Member | Role | Contribution |
-|--------|------|--------------|
-| **Yashodip More** | Full Stack Developer | Architecture, API Integration, Frontend Development |
-| **Komal Kumavat** | Frontend Developer | UI/UX Implementation, Component Design |
-| **Jaykumar Girase** | Backend Developer | Database Design, Authentication, API Development |
-| **Tejas Patil** | ML Engineer | Model Training, TensorFlow.js Integration |
+Request:
+{
+  "messages": [
+    { "role": "user", "content": "add red circle" }
+  ],
+  "canvasContext": {
+    "width": 728,
+    "height": 90,
+    "objectCount": 5
+  }
+}
+
+Response:
+{
+  "message": "Added a red circle to the canvas",
+  "actions": [
+    {
+      "command": "addCircle",
+      "params": { "color": "#ff0000" }
+    }
+  ]
+}
+```
+
+### Background Removal
+
+```
+POST /api/remove-bg
+
+Request:
+{
+  "image": "base64-encoded-image"
+}
+
+Response:
+{
+  "result": "base64-encoded-transparent-image"
+}
+```
 
 ---
 
-## Acknowledgments
+## Performance
 
-- **Tesco Retail Media** for organizing the hackathon and providing the problem statement
-- **Groq** for providing fast LLM inference capabilities
-- **Remove.bg** for reliable background removal API
-- **Pexels** for extensive royalty-free image library
-- **Vercel** for Next.js and deployment infrastructure
+```mermaid
+pie title Lighthouse Scores
+    "Performance" : 95
+    "Accessibility" : 90
+    "Best Practices" : 95
+    "SEO" : 100
+```
+
+| Metric | Target | Status |
+|--------|--------|--------|
+| LCP | < 2.5s |  |
+| FID | < 100ms |  |
+| CLS | < 0.1 |  |
+
+---
+
+## Roadmap
+
+```mermaid
+gantt
+    title RetailSync AI Roadmap 2026
+    dateFormat  YYYY-MM
+    section Q1
+    Multi-user Collaboration    :2026-01, 3M
+    Version History            :2026-01, 2M
+    Template Builder           :2026-02, 2M
+    section Q2
+    A/B Testing Integration    :2026-04, 2M
+    Analytics Dashboard        :2026-04, 3M
+    Batch Processing           :2026-05, 2M
+    section Q3
+    Mobile App                 :2026-07, 3M
+    Plugin System              :2026-07, 2M
+    White-label Solution       :2026-08, 2M
+```
+
+| Quarter | Feature | Status |
+|---------|---------|--------|
+| Q1 2026 | Multi-user collaboration | 🔜 Planned |
+| Q1 2026 | Version history | 🔜 Planned |
+| Q2 2026 | A/B testing | 🔜 Planned |
+| Q2 2026 | Analytics dashboard | 🔜 Planned |
+| Q3 2026 | Mobile app | 🔜 Planned |
+
+---
+
+## Team Sarthak
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>Yashodip More</strong><br/>
+      Full Stack Developer<br/>
+      <em>AI Integration</em>
+    </td>
+    <td align="center">
+      <strong>Komal Kumavat</strong><br/>
+      UI/UX Designer<br/>
+      <em>Design Systems</em>
+    </td>
+    <td align="center">
+      <strong>Jaykumar Girase</strong><br/>
+      Backend Developer<br/>
+      <em>API Architecture</em>
+    </td>
+    <td align="center">
+      <strong>Tejas Patil</strong><br/>
+      ML Engineer<br/>
+      <em>Model Training</em>
+    </td>
+  </tr>
+</table>
+
+**Sandip University, Nashik** — Final Year B.Tech Students
+
+---
+
+## License
+
+This project was created for the **Tesco Retail Media Hackathon 2025**.
 
 ---
 
 <p align="center">
-  <strong>RetailSync AI</strong> — Empowering Retail Media Teams with AI
+  <strong>RetailSync AI</strong> — Transforming Retail Media Creation
 </p>
-
-<p align="center">
-  Built with precision for Tesco Retail Media Hackathon 2025
-</p>
-
----
-
-**License**: This project was developed for Tesco Retail Media Hackathon 2025. All rights reserved.

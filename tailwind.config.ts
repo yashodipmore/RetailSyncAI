@@ -54,6 +54,8 @@ const config: Config = {
         sans: ['var(--font-poppins)', 'Inter', 'system-ui', 'sans-serif'],
         playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
         opensans: ['var(--font-opensans)', 'system-ui', 'sans-serif'],
+        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        space: ['var(--font-space)', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'glass': '0 8px 32px rgba(0, 0, 0, 0.1)',

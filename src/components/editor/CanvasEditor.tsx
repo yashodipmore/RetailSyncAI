@@ -91,6 +91,12 @@ export interface CanvasRef {
   addPaymentIcon: (method: 'upi' | 'visa' | 'mastercard' | 'cod' | 'paytm' | 'gpay') => void;
   addDecorativeFrame: (style: 'simple' | 'double' | 'dashed' | 'rounded' | 'fancy' | 'gradient' | 'shadow' | 'neon' | 'dotted' | 'thick') => void;
   addProductPlaceholder: (size?: 'small' | 'medium' | 'large') => void;
+  // Drawing tools
+  enableDrawingMode: (brushColor?: string, brushSize?: number) => void;
+  disableDrawingMode: () => void;
+  setBrushColor: (color: string) => void;
+  setBrushSize: (size: number) => void;
+  clearDrawing: () => void;
 }
 
 export default function CanvasEditor({ 
@@ -1939,6 +1945,50 @@ export default function CanvasEditor({
     saveStateInternal();
   }, []);
 
+  // ============== DRAWING TOOLS ==============
+  
+  // Enable free drawing mode
+  const enableDrawingMode = useCallback((brushColor: string = '#000000', brushSize: number = 5) => {
+    if (!fabricRef.current) return;
+    
+    fabricRef.current.isDrawingMode = true;
+    fabricRef.current.freeDrawingBrush = new fabric.PencilBrush(fabricRef.current);
+    fabricRef.current.freeDrawingBrush.color = brushColor;
+    fabricRef.current.freeDrawingBrush.width = brushSize;
+    fabricRef.current.freeDrawingBrush.strokeLineCap = 'round';
+    fabricRef.current.freeDrawingBrush.strokeLineJoin = 'round';
+  }, []);
+
+  // Disable free drawing mode
+  const disableDrawingMode = useCallback(() => {
+    if (!fabricRef.current) return;
+    fabricRef.current.isDrawingMode = false;
+    saveStateInternal();
+  }, []);
+
+  // Set brush color
+  const setBrushColor = useCallback((color: string) => {
+    if (!fabricRef.current || !fabricRef.current.freeDrawingBrush) return;
+    fabricRef.current.freeDrawingBrush.color = color;
+  }, []);
+
+  // Set brush size
+  const setBrushSize = useCallback((size: number) => {
+    if (!fabricRef.current || !fabricRef.current.freeDrawingBrush) return;
+    fabricRef.current.freeDrawingBrush.width = size;
+  }, []);
+
+  // Clear all drawing paths
+  const clearDrawing = useCallback(() => {
+    if (!fabricRef.current) return;
+    
+    const objects = fabricRef.current.getObjects();
+    const pathsToRemove = objects.filter(obj => obj.type === 'path');
+    pathsToRemove.forEach(path => fabricRef.current?.remove(path));
+    fabricRef.current.renderAll();
+    saveStateInternal();
+  }, []);
+
   // Add Drop Shadow to any object
   const addDropShadow = useCallback((blur: number, offsetX: number, offsetY: number, color: string) => {
     if (!fabricRef.current) return;
@@ -2625,6 +2675,12 @@ export default function CanvasEditor({
       addPaymentIcon,
       addDecorativeFrame,
       addProductPlaceholder,
+      // Drawing tools
+      enableDrawingMode,
+      disableDrawingMode,
+      setBrushColor,
+      setBrushSize,
+      clearDrawing,
     };
   }, [addText, addHeading, addRectangle, addCircle, addImage, addImageFromFile,
       setBackgroundImage, removeBackground, deleteSelected, duplicateSelected, 
@@ -2641,7 +2697,8 @@ export default function CanvasEditor({
       maskImageToShape, addGlow, addImageOutline, smartObjectFit, addCurvedText,
       addGradientText, blurBackground, addColorOverlay, removeImageFilters,
       distributeHorizontal, distributeVertical, clonePattern, addSocialIcon,
-      addPaymentIcon, addDecorativeFrame, addProductPlaceholder]);
+      addPaymentIcon, addDecorativeFrame, addProductPlaceholder,
+      enableDrawingMode, disableDrawingMode, setBrushColor, setBrushSize, clearDrawing]);
 
   return (
     <div className="relative bg-white rounded-lg shadow-lg" style={{ width, height }}>

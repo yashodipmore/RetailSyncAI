@@ -9,7 +9,7 @@ import {
   // Layout & Navigation
   Menu, X, ChevronDown, ChevronRight, ChevronLeft, LogOut, User,
   // Tools
-  Type, Square, Circle, Image, Layers, MousePointer2, Hand, 
+  Type, Square, Circle, Image, Layers, MousePointer2, Hand, Pencil, PenTool, Highlighter, 
   // Actions
   Undo2, Redo2, Copy, Trash2, Lock, Unlock, Eye, EyeOff,
   // Alignment
@@ -189,7 +189,10 @@ export default function EditorPage() {
   const [showStockImages, setShowStockImages] = useState(false);
   const [showAICopyWriter, setShowAICopyWriter] = useState(false);
   const [isRemovingBg, setIsRemovingBg] = useState(false);
-  const [activeTool, setActiveTool] = useState<'select' | 'pan' | 'text' | 'shape'>('select');
+  const [activeTool, setActiveTool] = useState<'select' | 'pan' | 'text' | 'shape' | 'draw'>('select');
+  const [brushColor, setBrushColor] = useState('#000000');
+  const [brushSize, setBrushSize] = useState(5);
+  const [showDrawingTools, setShowDrawingTools] = useState(false);
   const [activeLeftPanel, setActiveLeftPanel] = useState<'elements' | 'templates' | 'assets' | 'layers'>('elements');
   const [activeRightPanel, setActiveRightPanel] = useState<'properties' | 'compliance' | 'ai'>('properties');
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
@@ -582,6 +585,34 @@ export default function EditorPage() {
     editorMethodsRef.current?.addProductPlaceholder?.(size);
     showNotification('Placeholder added', 'success');
     updateLayers();
+  };
+
+  // Drawing handlers
+  const handleToggleDrawingMode = () => {
+    if (activeTool === 'draw') {
+      setActiveTool('select');
+      editorMethodsRef.current?.disableDrawingMode?.();
+      showNotification('Drawing mode off', 'info');
+    } else {
+      setActiveTool('draw');
+      editorMethodsRef.current?.enableDrawingMode?.(brushColor, brushSize);
+      showNotification('Drawing mode on - sketch freely!', 'success');
+    }
+  };
+
+  const handleBrushColorChange = (color: string) => {
+    setBrushColor(color);
+    editorMethodsRef.current?.setBrushColor?.(color);
+  };
+
+  const handleBrushSizeChange = (size: number) => {
+    setBrushSize(size);
+    editorMethodsRef.current?.setBrushSize?.(size);
+  };
+
+  const handleClearDrawing = () => {
+    editorMethodsRef.current?.clearDrawing?.();
+    showNotification('Drawing cleared', 'info');
   };
 
   const handleAddImage = () => {
@@ -1489,18 +1520,90 @@ export default function EditorPage() {
         <div className="flex items-center gap-0.5">
           <IconButton 
             icon={MousePointer2} 
-            onClick={() => setActiveTool('select')} 
+            onClick={() => { setActiveTool('select'); editorMethodsRef.current?.disableDrawingMode?.(); }} 
             active={activeTool === 'select'} 
             tooltip="Select (V)" 
             size="sm" 
           />
           <IconButton 
             icon={Hand} 
-            onClick={() => setActiveTool('pan')} 
+            onClick={() => { setActiveTool('pan'); editorMethodsRef.current?.disableDrawingMode?.(); }} 
             active={activeTool === 'pan'} 
             tooltip="Pan (H)" 
             size="sm" 
           />
+          
+          {/* Drawing Tool with Dropdown */}
+          <div className="relative">
+            <button
+              onClick={handleToggleDrawingMode}
+              className={`p-1.5 rounded-lg transition-all ${
+                activeTool === 'draw' 
+                  ? 'bg-pink-500 text-white' 
+                  : 'hover:bg-white/10 text-gray-400'
+              }`}
+              title="Draw / Sketch (D)"
+            >
+              <Pencil size={16} />
+            </button>
+            {activeTool === 'draw' && (
+              <button
+                onClick={() => setShowDrawingTools(!showDrawingTools)}
+                className="absolute -bottom-1 -right-1 w-3 h-3 bg-pink-600 rounded-full flex items-center justify-center"
+              >
+                <ChevronDown size={8} className="text-white" />
+              </button>
+            )}
+            
+            {/* Drawing Tools Panel */}
+            {showDrawingTools && activeTool === 'draw' && (
+              <div className="absolute top-full left-0 mt-2 w-48 bg-[#1a1a24] border border-white/10 rounded-xl shadow-xl z-50 overflow-hidden p-3 space-y-3">
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Brush Color</p>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {['#000000', '#ffffff', '#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'].map(color => (
+                      <button
+                        key={color}
+                        onClick={() => handleBrushColorChange(color)}
+                        className={`w-6 h-6 rounded-full border-2 transition-all ${
+                          brushColor === color ? 'border-white scale-110' : 'border-transparent'
+                        }`}
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                  <input
+                    type="color"
+                    value={brushColor}
+                    onChange={(e) => handleBrushColorChange(e.target.value)}
+                    className="w-full h-6 mt-2 rounded cursor-pointer"
+                  />
+                </div>
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Brush Size: {brushSize}px</p>
+                  <input
+                    type="range"
+                    min="1"
+                    max="50"
+                    value={brushSize}
+                    onChange={(e) => handleBrushSizeChange(Number(e.target.value))}
+                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-pink-500"
+                  />
+                  <div className="flex justify-between mt-1">
+                    <span className="text-[10px] text-gray-500">1px</span>
+                    <span className="text-[10px] text-gray-500">50px</span>
+                  </div>
+                </div>
+                <button
+                  onClick={handleClearDrawing}
+                  className="w-full py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-medium flex items-center justify-center gap-2"
+                >
+                  <Eraser size={14} />
+                  Clear All Drawing
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         
         <ToolbarDivider />

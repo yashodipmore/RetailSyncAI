@@ -388,7 +388,7 @@ Background removal endpoint.
 | **Jaykumar Girase** | Backend Developer | API Architecture, Database |
 | **Tejas Patil** | ML Engineer | Model Training, Quality Analysis |
 
-**Institution:** Sandip University, Nashik — Final Year B.Tech Students
+**Institution:** RCPIT Shirpur — Final Year B.Tech Students
 
 ---
 

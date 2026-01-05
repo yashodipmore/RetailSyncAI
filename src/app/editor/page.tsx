@@ -50,7 +50,6 @@ import ExportPanel from '@/components/editor/ExportPanel';
 import TemplateMarketplace, { Template } from '@/components/editor/TemplateMarketplace';
 import AssetLibrary from '@/components/editor/AssetLibrary';
 import StockImagesLibrary from '@/components/editor/StockImagesLibrary';
-import AICopyWriter from '@/components/editor/AICopyWriter';
 import { CANVAS_SIZES } from '@/components/editor/CanvasEditor';
 import * as fabric from 'fabric';
 
@@ -189,6 +188,7 @@ export default function EditorPage() {
   const [showAssetLibrary, setShowAssetLibrary] = useState(false);
   const [showStockImages, setShowStockImages] = useState(false);
   const [showAICopyWriter, setShowAICopyWriter] = useState(false);
+  const [isRemovingBg, setIsRemovingBg] = useState(false);
   const [activeTool, setActiveTool] = useState<'select' | 'pan' | 'text' | 'shape'>('select');
   const [activeLeftPanel, setActiveLeftPanel] = useState<'elements' | 'templates' | 'assets' | 'layers'>('elements');
   const [activeRightPanel, setActiveRightPanel] = useState<'properties' | 'compliance' | 'ai'>('properties');
@@ -350,13 +350,6 @@ export default function EditorPage() {
   const handleAddText = () => {
     editorMethodsRef.current?.addText?.('Add your text');
     showNotification('Text added', 'success');
-    updateLayers();
-  };
-
-  // Handle AI Copy Writer text insertion
-  const handleInsertAIText = (text: string) => {
-    editorMethodsRef.current?.addText?.(text);
-    showNotification('AI text added to canvas', 'success');
     updateLayers();
   };
 
@@ -654,10 +647,21 @@ export default function EditorPage() {
   const handleFlipVertical = () => editorMethodsRef.current?.flipVertical?.();
   const handleToggleLock = () => { editorMethodsRef.current?.toggleLock?.(); updateLayers(); };
   const handleAlignObject = (alignment: string) => editorMethodsRef.current?.alignObject?.(alignment);
-  const handleRemoveBackground = () => {
-    showNotification('Removing background...', 'info');
-    editorMethodsRef.current?.removeBackground?.();
-    setTimeout(() => showNotification('Background removed', 'success'), 1500);
+  const handleRemoveBackground = async () => {
+    if (!selectedObject || selectedObject.type !== 'image') {
+      showNotification('Please select an image first', 'error');
+      return;
+    }
+    setIsRemovingBg(true);
+    showNotification('Removing background with AI...', 'info');
+    try {
+      await editorMethodsRef.current?.removeBackground?.();
+      showNotification('Background removed successfully!', 'success');
+    } catch (error) {
+      showNotification('Failed to remove background', 'error');
+    } finally {
+      setIsRemovingBg(false);
+    }
   };
   const handleApplyFilter = (filter: string) => editorMethodsRef.current?.applyFilter?.(filter);
   const handleAdjustImage = (type: string, value: number) => editorMethodsRef.current?.adjustImage?.(type, value);
@@ -1365,6 +1369,30 @@ export default function EditorPage() {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2">
+          {/* Remove Background Button - Prominent */}
+          <button
+            onClick={handleRemoveBackground}
+            disabled={isRemovingBg || !selectedObject || selectedObject?.type !== 'image'}
+            className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              selectedObject?.type === 'image' 
+                ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg shadow-amber-500/25' 
+                : 'bg-white/5 text-gray-500 cursor-not-allowed'
+            } disabled:opacity-50`}
+          >
+            {isRemovingBg ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Removing...
+              </>
+            ) : (
+              <>
+                <Eraser size={16} />
+                Remove BG
+              </>
+            )}
+          </button>
+          
+          <ToolbarDivider />
           <IconButton icon={Save} onClick={handleSaveProject} tooltip="Save Project" size="sm" />
           <IconButton icon={FolderOpen} onClick={handleLoadProject} tooltip="Load Project" size="sm" />
           <ToolbarDivider />
@@ -1533,12 +1561,6 @@ export default function EditorPage() {
         
         {/* Right Side Tools */}
         <div className="flex items-center gap-0.5">
-          <IconButton 
-            icon={Sparkles} 
-            onClick={() => setShowAICopyWriter(true)} 
-            tooltip="AI Copy Writer" 
-            size="sm" 
-          />
           <IconButton icon={Wand2} onClick={handleAutoArrange} tooltip="Auto Arrange" size="sm" />
           <IconButton icon={Palette} onClick={handleExtractColors} tooltip="Extract Colors" size="sm" />
           <ToolbarDivider />
@@ -1589,22 +1611,6 @@ export default function EditorPage() {
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             {activeLeftPanel === 'elements' && (
               <>
-                {/* AI Copy Writer - Prominent Position */}
-                <Section title="AI Tools">
-                  <button
-                    onClick={() => setShowAICopyWriter(true)}
-                    className="w-full flex items-center gap-3 p-3 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 transition-colors"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-purple-500 flex items-center justify-center">
-                      <Sparkles size={18} className="text-white" />
-                    </div>
-                    <div className="text-left flex-1">
-                      <p className="text-sm text-white font-medium">AI Copy Writer</p>
-                      <p className="text-[10px] text-gray-400">Headlines, CTAs & more</p>
-                    </div>
-                  </button>
-                </Section>
-
                 {/* Text Section */}
                 <Section title="Text">
                   <div className="grid grid-cols-2 gap-2">
@@ -2324,12 +2330,6 @@ export default function EditorPage() {
         onSelectImage={handleAddStockImage}
         onSetBackground={handleSetStockBackground}
         onAddLogo={handleAddLogo}
-      />
-
-      <AICopyWriter
-        isOpen={showAICopyWriter}
-        onClose={() => setShowAICopyWriter(false)}
-        onInsertText={handleInsertAIText}
       />
 
       {/* Global Styles */}

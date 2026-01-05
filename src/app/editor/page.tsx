@@ -1389,18 +1389,18 @@ export default function EditorPage() {
 
       {/* ======================= TOP HEADER ======================= */}
       <header className="h-12 border-b border-white/[0.06] flex items-center justify-between px-3 bg-[#16161d] shrink-0">
-        {/* Left: Logo & File */}
+        {/* Left: Brand */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 rounded-lg bg-violet-500 flex items-center justify-center">
-              <Sparkles size={16} className="text-white" />
-            </div>
+          <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+            <span className="text-[16px] font-bold tracking-tight text-white" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+              Retail<span className="text-violet-400">Sync</span>
+            </span>
           </Link>
           
           <div className="h-5 w-px bg-white/10" />
           
-          <div className="flex items-center gap-1">
-            <span className="text-sm font-medium text-white">Untitled Design</span>
+          <div className="flex items-center gap-1 px-2 py-1 rounded-md hover:bg-white/5 cursor-pointer transition-colors">
+            <span className="text-sm text-gray-400">Untitled</span>
             <ChevronDown size={14} className="text-gray-500" />
           </div>
         </div>

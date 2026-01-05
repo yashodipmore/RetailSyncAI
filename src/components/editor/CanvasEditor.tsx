@@ -2866,13 +2866,7 @@ export default function CanvasEditor({
 
   return (
     <div className="relative bg-white rounded-lg shadow-lg" style={{ width, height }}>
-      <canvas 
-        ref={canvasRef} 
-        style={{ 
-          imageRendering: 'high-quality',
-          // Prevent blurry canvas on high DPI displays
-        }} 
-      />
+      <canvas ref={canvasRef} />
     </div>
   );
 }

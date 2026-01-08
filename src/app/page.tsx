@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import TeamMemberCard from '@/components/ui/TeamMemberCard';
+import EditorShowcase from '@/components/ui/EditorShowcase';
 
 export default function Home() {
   return (
@@ -34,63 +35,62 @@ export default function Home() {
               <div>
                 {/* Badge */}
                 <ScrollReveal duration={1200} distance={30}>
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-orange-100 to-violet-100 border border-orange-300/50 rounded-full mb-6">
-                    <span className="w-2 h-2 bg-gradient-to-r from-orange-500 to-violet-600 rounded-full animate-pulse"></span>
-                    <span className="text-xs font-semibold font-inter tracking-wide bg-gradient-to-r from-orange-600 to-violet-600 bg-clip-text text-transparent">TESCO RETAIL MEDIA HACKATHON 2025</span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 rounded-full mb-8">
+                    <span className="w-1.5 h-1.5 bg-[#00539F] rounded-full"></span>
+                    <span className="text-xs font-poppins font-medium tracking-wide text-gray-600">Tesco Retail Media Hackathon 2025</span>
                   </div>
                 </ScrollReveal>
 
                 {/* Main Heading */}
                 <ScrollReveal delay={150} duration={1200} distance={50}>
-                  <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1] mb-6">
+                  <h1 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 leading-[1.15] mb-6">
                     Retail Ads,
                     <br />
-                    <span className="bg-gradient-to-r from-[#00539F] via-violet-600 to-orange-500 bg-clip-text text-transparent">Reimagined</span>
+                    <span className="text-[#00539F]">Reimagined</span>
                   </h1>
                 </ScrollReveal>
 
                 {/* Subheading */}
                 <ScrollReveal delay={300} duration={1200} distance={40}>
-                  <p className="font-inter text-lg text-gray-600 leading-relaxed mb-8 max-w-lg">
-                    Create stunning, brand-compliant advertisements in minutes — not hours. 
-                    Let AI handle the complexity while you focus on creativity.
+                  <p className="font-poppins text-base md:text-lg font-normal text-gray-500 leading-relaxed mb-10 max-w-md">
+                    Create stunning, brand-compliant advertisements in minutes — not hours. Focus on creativity, we handle the rest.
                   </p>
                 </ScrollReveal>
 
                 {/* CTA Buttons */}
                 <ScrollReveal delay={450} duration={1200} distance={40}>
-                  <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                  <div className="flex flex-col sm:flex-row gap-3 mb-12">
                     <Link
                       href="/editor"
-                      className="px-8 py-4 bg-gradient-to-r from-[#00539F] to-violet-600 text-white font-semibold font-inter rounded-xl hover:shadow-xl hover:shadow-violet-200 transition-all hover:-translate-y-0.5"
+                      className="px-6 py-3 bg-[#00539F] text-white font-poppins font-medium text-sm rounded-lg hover:bg-[#004080] transition-colors"
                     >
-                      Start Creating — It&apos;s Free
+                      Start Creating
                     </Link>
                     <Link
                       href="#how-it-works"
-                      className="px-8 py-4 border-2 border-gray-200 text-gray-700 font-medium font-inter rounded-xl hover:border-orange-300 hover:text-orange-600 transition-all"
+                      className="px-6 py-3 border border-gray-300 text-gray-600 font-poppins font-medium text-sm rounded-lg hover:border-gray-400 hover:text-gray-800 transition-colors"
                     >
-                      See How It Works
+                      How It Works
                     </Link>
                   </div>
                 </ScrollReveal>
 
                 {/* Stats */}
                 <ScrollReveal delay={600} duration={1200} distance={30}>
-                  <div className="flex items-center gap-8">
+                  <div className="flex items-center gap-10">
                     <div>
-                      <p className="font-space text-3xl font-bold bg-gradient-to-r from-violet-600 to-violet-500 bg-clip-text text-transparent">70+</p>
-                      <p className="text-sm font-inter text-gray-500">AI Commands</p>
+                      <p className="font-poppins text-2xl font-semibold text-gray-900">70+</p>
+                      <p className="text-xs font-poppins text-gray-400 mt-0.5">AI Commands</p>
                     </div>
-                    <div className="w-px h-12 bg-gradient-to-b from-orange-200 to-violet-200"></div>
+                    <div className="w-px h-10 bg-gray-200"></div>
                     <div>
-                      <p className="font-space text-3xl font-bold bg-gradient-to-r from-[#00539F] to-violet-500 bg-clip-text text-transparent">15+</p>
-                      <p className="text-sm font-inter text-gray-500">Export Formats</p>
+                      <p className="font-poppins text-2xl font-semibold text-gray-900">15+</p>
+                      <p className="text-xs font-poppins text-gray-400 mt-0.5">Export Formats</p>
                     </div>
-                    <div className="w-px h-12 bg-gradient-to-b from-violet-200 to-orange-200"></div>
+                    <div className="w-px h-10 bg-gray-200"></div>
                     <div>
-                      <p className="font-space text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">1M+</p>
-                      <p className="text-sm font-inter text-gray-500">Stock Images</p>
+                      <p className="font-poppins text-2xl font-semibold text-gray-900">1M+</p>
+                      <p className="text-xs font-poppins text-gray-400 mt-0.5">Stock Images</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -156,16 +156,19 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Editor Showcase Section */}
+        <EditorShowcase />
+
         {/* Problem Section */}
         <section className="relative py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal duration={1200} distance={40}>
               <div className="text-center mb-16">
-                <p className="text-sm font-space font-semibold text-orange-500 tracking-wider uppercase mb-3">The Problem</p>
-                <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                <p className="text-sm font-poppins font-medium text-gray-500 tracking-wider uppercase mb-3">The Problem</p>
+                <h2 className="font-poppins text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
                   Creating Retail Ads is <span className="text-red-500">Broken</span>
                 </h2>
-                <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto">
+                <p className="font-poppins text-base text-gray-500 max-w-2xl mx-auto">
                   Traditional ad creation is slow, expensive, and error-prone. 
                   Most brands struggle with compliance and consistency.
                 </p>
@@ -194,15 +197,15 @@ export default function Home() {
                 }
               ].map((problem, index) => (
                 <ScrollReveal key={index} delay={index * 150} duration={1200} distance={50}>
-                  <div className="bg-white rounded-2xl p-6 border-2 border-gray-800 shadow-sm h-full">
-                    <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-4">
-                      <span className="text-red-500 font-bold font-space">{index + 1}</span>
+                  <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm h-full">
+                    <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center mb-4">
+                      <span className="text-red-500 font-semibold font-poppins">{index + 1}</span>
                     </div>
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2 font-inter">{problem.title}</h3>
-                    <p className="font-inter text-sm text-gray-600 mb-4">{problem.description}</p>
+                    <h3 className="font-medium text-lg text-gray-900 mb-2 font-poppins">{problem.title}</h3>
+                    <p className="font-poppins text-sm text-gray-500 mb-4">{problem.description}</p>
                     <div className="pt-4 border-t border-gray-100">
-                      <p className="font-space text-2xl font-bold text-red-500">{problem.stat}</p>
-                      <p className="text-xs text-gray-500 uppercase tracking-wider font-inter">{problem.statLabel}</p>
+                      <p className="font-poppins text-2xl font-semibold text-red-500">{problem.stat}</p>
+                      <p className="text-xs text-gray-400 uppercase tracking-wider font-poppins">{problem.statLabel}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -216,11 +219,11 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <ScrollReveal duration={1200} distance={40}>
               <div className="text-center mb-16">
-                <p className="text-sm font-space font-semibold bg-gradient-to-r from-violet-600 to-violet-500 bg-clip-text text-transparent tracking-wider uppercase mb-3">Our Solution</p>
-                <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  AI That <span className="bg-gradient-to-r from-violet-600 to-orange-500 bg-clip-text text-transparent">Understands</span> Retail
+                <p className="text-sm font-poppins font-medium text-[#00539F] tracking-wider uppercase mb-3">Our Solution</p>
+                <h2 className="font-poppins text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
+                  AI That <span className="text-[#00539F]">Understands</span> Retail
                 </h2>
-                <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto">
+                <p className="font-poppins text-base text-gray-500 max-w-2xl mx-auto">
                   RetailSync AI combines deep learning with retail expertise to automate 
                   ad creation while ensuring brand compliance.
                 </p>
@@ -251,11 +254,11 @@ export default function Home() {
                 <ScrollReveal key={index} delay={index * 200} duration={1200} distance={50}>
                   <div className="relative h-full">
                     <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-shadow h-full">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${item.color} flex items-center justify-center text-white font-bold text-lg font-space mb-6`}>
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${item.color} flex items-center justify-center text-white font-medium text-lg font-poppins mb-6`}>
                         {item.step}
                       </div>
-                      <h3 className="font-semibold text-xl text-gray-900 mb-3 font-inter">{item.title}</h3>
-                      <p className="font-inter text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                      <h3 className="font-medium text-xl text-gray-900 mb-3 font-poppins">{item.title}</h3>
+                      <p className="font-poppins text-gray-500 text-sm leading-relaxed">{item.description}</p>
                     </div>
                     {index < 2 && (
                       <div className="hidden md:block absolute top-1/2 -right-4 w-8 text-gray-300 text-2xl">→</div>
@@ -272,11 +275,11 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <ScrollReveal duration={1200} distance={40}>
               <div className="text-center mb-16">
-                <p className="text-sm font-space font-semibold bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent tracking-wider uppercase mb-3">Innovation</p>
-                <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6">
+                <p className="text-sm font-poppins font-medium text-orange-400 tracking-wider uppercase mb-3">Innovation</p>
+                <h2 className="font-poppins text-3xl md:text-4xl font-semibold text-white mb-6">
                   What Makes Us <span className="text-orange-400">Different</span>
                 </h2>
-                <p className="font-inter text-lg text-gray-400 max-w-2xl mx-auto">
+                <p className="font-poppins text-base text-gray-400 max-w-2xl mx-auto">
                   Built specifically for retail media, not adapted from generic design tools.
                 </p>
               </div>
@@ -370,11 +373,11 @@ export default function Home() {
           <div className="max-w-7xl mx-auto relative">
             <ScrollReveal duration={1200} distance={40}>
               <div className="text-center mb-20">
-                <p className="text-sm font-inter font-semibold text-violet-600 tracking-[0.2em] uppercase mb-4">Complete Toolkit</p>
-                <h2 className="font-playfair text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                <p className="text-sm font-poppins font-medium text-[#00539F] tracking-[0.2em] uppercase mb-4">Complete Toolkit</p>
+                <h2 className="font-poppins text-3xl md:text-5xl font-semibold text-gray-900 mb-6">
                   Professional-Grade Tools
                 </h2>
-                <p className="font-inter text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
+                <p className="font-poppins text-base text-gray-500 max-w-xl mx-auto leading-relaxed">
                   Every feature crafted for efficiency. Zero learning curve.
                 </p>
               </div>
@@ -392,8 +395,8 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
                       </svg>
                     </div>
-                    <h3 className="font-inter font-bold text-2xl text-white mb-3">AI Design Agent</h3>
-                    <p className="font-inter text-gray-400 text-sm leading-relaxed mb-6">
+                    <h3 className="font-poppins font-semibold text-2xl text-white mb-3">AI Design Agent</h3>
+                    <p className="font-poppins text-gray-400 text-sm leading-relaxed mb-6">
                       Natural language control over your entire canvas. Just type what you want — add shapes, change colors, remove backgrounds.
                     </p>
                     <div className="flex items-center gap-3">
@@ -556,10 +559,10 @@ export default function Home() {
         <section className="relative py-24 px-6">
           <div className="max-w-3xl mx-auto text-center">
             <ScrollReveal duration={1200} distance={50}>
-              <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="font-poppins text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
                 Ready to Transform Your Workflow?
               </h2>
-              <p className="font-inter text-lg text-gray-600 mb-10">
+              <p className="font-poppins text-base text-gray-500 mb-10">
                 Join brands already saving hours on every campaign. Start free, no credit card required.
               </p>
             </ScrollReveal>
@@ -587,11 +590,11 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal duration={1200} distance={40}>
               <div className="text-center mb-16">
-                <p className="text-sm font-inter font-semibold text-violet-600 tracking-[0.2em] uppercase mb-4">The Team Behind</p>
-                <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                  Team <span className="bg-gradient-to-r from-[#00539F] to-violet-600 bg-clip-text text-transparent">Sarthak</span>
+                <p className="text-sm font-poppins font-medium text-[#00539F] tracking-[0.2em] uppercase mb-4">The Team Behind</p>
+                <h2 className="font-poppins text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
+                  Team <span className="text-[#00539F]">Sarthak</span>
                 </h2>
-                <p className="font-inter text-lg text-gray-500 max-w-xl mx-auto">
+                <p className="font-poppins text-base text-gray-500 max-w-xl mx-auto">
                   B.Tech students passionate about AI and design innovation
                 </p>
               </div>
@@ -665,8 +668,8 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-playfair font-bold text-xl">RetailSync AI</h3>
-                    <p className="text-gray-400 text-xs font-inter">AI-Powered Ad Creation</p>
+                    <h3 className="font-poppins font-semibold text-xl">RetailSync AI</h3>
+                    <p className="text-gray-400 text-xs font-poppins">AI-Powered Ad Creation</p>
                   </div>
                 </div>
                 <p className="font-inter text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">

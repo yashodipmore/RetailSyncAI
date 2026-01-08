@@ -52,6 +52,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-poppins)', 'Inter', 'system-ui', 'sans-serif'],
+        poppins: ['Poppins', 'var(--font-poppins)', 'system-ui', 'sans-serif'],
         playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
         opensans: ['var(--font-opensans)', 'system-ui', 'sans-serif'],
         inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],

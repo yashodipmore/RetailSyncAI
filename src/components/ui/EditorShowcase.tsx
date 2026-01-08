@@ -58,135 +58,153 @@ export default function EditorShowcase() {
   };
 
   return (
-    <section className="relative py-16 px-2 md:px-4 bg-gradient-to-b from-white via-gray-50/50 to-white overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-violet-200/40 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-orange-200/40 to-transparent rounded-full blur-3xl" />
+    <section className="relative py-24 md:py-32 px-4 md:px-8 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+      {/* Ambient Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-violet-500/[0.07] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/[0.05] rounded-full blur-[100px]" />
       </div>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <p className="font-poppins text-sm font-semibold tracking-widest uppercase bg-gradient-to-r from-[#00539F] via-violet-600 to-orange-500 bg-clip-text text-transparent mb-3">
-            Powerful Editor
+        {/* Section Header - Minimal */}
+        <div className="text-center mb-20">
+          <p className="font-poppins text-sm font-medium tracking-[0.2em] uppercase text-violet-600 mb-4">
+            The Editor
           </p>
-          <h2 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-            Experience the Future of
-            <span className="bg-gradient-to-r from-[#00539F] via-violet-600 to-orange-500 bg-clip-text text-transparent ml-2">
-              Ad Creation
-            </span>
+          <h2 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-5 leading-[1.1]">
+            Beautifully crafted.
+            <br />
+            <span className="text-gray-400">Incredibly powerful.</span>
           </h2>
-          <p className="font-poppins text-base md:text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
-            AI-powered editor to create professional ads in minutes.
-          </p>
         </div>
 
-        {/* Main Showcase Container */}
-        <div className="relative">
-          {/* Browser Window Frame */}
-          <div className="relative mx-auto w-full">
-            {/* Subtle Shadow Glow - Bottom */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[85%] h-20 bg-gradient-to-r from-[#00539F] via-violet-500 to-violet-600 rounded-full blur-3xl opacity-40" />
+        {/* MacBook Showcase */}
+        <div className="relative mx-auto">
+          {/* MacBook Container - Slight curve */}
+          <div 
+            className="relative mx-auto max-w-[1200px]"
+            style={{
+              transform: 'perspective(2000px) rotateX(2deg)',
+              transformOrigin: 'center center'
+            }}
+          >
+            {/* MacBook Shadow */}
+            <div className="absolute -bottom-10 left-[8%] right-[8%] h-20 bg-black/[0.08] blur-[40px] rounded-[100%]" />
             
-            {/* Browser Chrome - White Glow Border */}
-            <div className="relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 rounded-[2rem] p-3 md:p-4 shadow-[0_0_30px_rgba(255,255,255,0.15)] border-[3px] border-white/20">
-              {/* Title Bar */}
-              <div className="flex items-center justify-between px-3 py-2 mb-2 bg-gray-800/50 rounded-lg">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+            {/* MacBook Device */}
+            <div className="relative">
+              {/* Screen Bezel */}
+              <div className="relative bg-[#1d1d1f] rounded-t-[20px] p-[8px] pb-0 shadow-[0_0_0_1px_rgba(0,0,0,0.8),0_40px_80px_-20px_rgba(0,0,0,0.5)]">
+                {/* Camera Notch */}
+                <div className="absolute top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-[#0a0a0a] rounded-full flex items-center justify-center z-20">
+                  <div className="w-1.5 h-1.5 bg-[#1a1a2e] rounded-full" />
                 </div>
-                <div className="flex-1 mx-6">
-                  <div className="bg-gray-700/50 rounded-md py-1.5 px-3 flex items-center justify-center gap-2 max-w-xs mx-auto">
-                    <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    <span className="font-poppins text-xs text-gray-400">retailsync.ai/editor</span>
-                  </div>
-                </div>
-                <div className="w-6 h-6 rounded-md bg-gradient-to-br from-violet-500 to-orange-500 flex items-center justify-center">
-                  <span className="text-white text-[10px] font-bold font-poppins">RS</span>
-                </div>
-              </div>
-
-              {/* Image Container */}
-              <div className="relative aspect-[19.5/9] rounded-lg overflow-hidden bg-gray-900">
-                {/* Image with smooth transition */}
-                <div 
-                  className={`absolute inset-0 transition-all duration-500 ease-out ${
-                    isTransitioning 
-                      ? 'opacity-0 scale-[1.02]' 
-                      : 'opacity-100 scale-100'
-                  }`}
-                >
-                  <Image
-                    src={editorImages[activeIndex].src}
-                    alt={editorImages[activeIndex].title}
-                    fill
-                    className="object-cover object-top"
-                    priority
-                    sizes="(max-width: 768px) 100vw, 900px"
-                  />
-                </div>
-
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent pointer-events-none" />
-
-                {/* Current Feature Info - Compact */}
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="bg-black/60 backdrop-blur-md rounded-lg px-3 py-2 border border-white/10">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-poppins text-sm font-semibold text-white truncate">
-                          {editorImages[activeIndex].title}
-                        </h3>
+                
+                {/* Screen */}
+                <div className="relative bg-[#0a0a0a] rounded-t-[12px] overflow-hidden">
+                  {/* Menu Bar */}
+                  <div className="flex items-center justify-between px-4 py-1.5 bg-[#1d1d1f]/95 backdrop-blur-sm border-b border-white/[0.05]">
+                    <div className="flex items-center gap-4">
+                      {/* Apple Logo */}
+                      <svg className="w-3.5 h-3.5 text-white/90" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                      </svg>
+                      <span className="font-poppins text-[11px] text-white/80 font-medium">RetailSync</span>
+                      <span className="font-poppins text-[11px] text-white/60">File</span>
+                      <span className="font-poppins text-[11px] text-white/60">Edit</span>
+                      <span className="font-poppins text-[11px] text-white/60">View</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-sm bg-white/20" />
+                        <span className="font-poppins text-[11px] text-white/60">100%</span>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-white/20 rounded-md px-2 py-1 shrink-0">
-                        <span className="font-poppins text-[10px] font-medium text-white">
-                          {activeIndex + 1}/{editorImages.length}
-                        </span>
+                      <span className="font-poppins text-[11px] text-white/60">Wed 12:45</span>
+                    </div>
+                  </div>
+                  
+                  {/* Browser Window inside screen */}
+                  <div className="relative m-2 bg-[#2a2a2a] rounded-lg overflow-hidden shadow-2xl">
+                    {/* Browser Tab Bar */}
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#3a3a3a]">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                      </div>
+                      <div className="flex-1 flex items-center justify-center">
+                        <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-md px-3 py-1 max-w-[300px] w-full">
+                          <svg className="w-3 h-3 text-gray-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                          </svg>
+                          <span className="font-poppins text-[11px] text-gray-400 truncate">retailsync.ai/editor</span>
+                        </div>
+                      </div>
+                      <div className="w-6" />
+                    </div>
+
+                    {/* Editor Content */}
+                    <div className="relative aspect-[16/9] overflow-hidden bg-[#1a1a1a]">
+                      <div 
+                        className={`absolute inset-0 transition-all duration-700 ease-out ${
+                          isTransitioning 
+                            ? 'opacity-0 scale-[1.01]' 
+                            : 'opacity-100 scale-100'
+                        }`}
+                      >
+                        <Image
+                          src={editorImages[activeIndex].src}
+                          alt={editorImages[activeIndex].title}
+                          fill
+                          className="object-contain"
+                          priority
+                          sizes="(max-width: 768px) 100vw, 1200px"
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Navigation Dots */}
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {editorImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handleDotClick(index)}
-                className="group relative transition-all duration-300"
-                aria-label={`Go to slide ${index + 1}`}
-              >
-                <div 
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeIndex === index
-                      ? 'bg-gradient-to-r from-[#00539F] via-violet-600 to-orange-500 w-8'
-                      : 'bg-gray-300 hover:bg-gray-400 w-2'
-                  }`}
-                />
-              </button>
-            ))}
+              {/* MacBook Bottom/Keyboard Base */}
+              <div className="relative">
+                {/* Hinge */}
+                <div className="h-[6px] bg-gradient-to-b from-[#4a4a4c] via-[#2d2d2f] to-[#1d1d1f] rounded-b-sm mx-[2px]" />
+                
+                {/* Base with notch */}
+                <div className="relative bg-gradient-to-b from-[#c8c8ca] to-[#a8a8aa] h-[14px] rounded-b-[10px] mx-auto shadow-[0_4px_12px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.5)]" style={{ width: '70%' }}>
+                  {/* Trackpad notch */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80px] h-[4px] bg-gradient-to-b from-[#8a8a8c] to-[#a8a8aa] rounded-b-md" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Feature Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
-          {['AI Copilot', 'Brand Compliance', 'Smart Templates', '15+ Export Formats', 'Real-time Preview'].map((feature, index) => (
-            <div
+        {/* Navigation Dots - Clean */}
+        <div className="flex items-center justify-center gap-3 mt-12">
+          {editorImages.map((_, index) => (
+            <button
               key={index}
-              className="font-poppins text-xs font-medium px-3 py-1.5 bg-white rounded-full border border-gray-200 text-gray-700 shadow-sm hover:shadow-md hover:border-violet-300 hover:text-violet-600 transition-all duration-200 cursor-default"
+              onClick={() => handleDotClick(index)}
+              className="group relative p-1"
+              aria-label={`Go to slide ${index + 1}`}
             >
-              {feature}
-            </div>
+              <div 
+                className={`rounded-full transition-all duration-500 ${
+                  activeIndex === index
+                    ? 'w-8 h-2 bg-gray-900'
+                    : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            </button>
           ))}
         </div>
+
+        {/* Feature Label */}
+        <p className="font-poppins text-center text-sm text-gray-500 mt-6">
+          {editorImages[activeIndex].title}
+        </p>
       </div>
     </section>
   );
